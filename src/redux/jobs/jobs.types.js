@@ -1,0 +1,8 @@
+const JobActionTypes = {
+    FETCH_JOBS_START: 'FETCH_JOBS_START',
+    FETCH_JOBS_SUCCESS: 'FETCH_JOBS_SUCCESS',
+    FETCH_JOBS_FAILURE: 'FETCH_JOBS_FAILURE',
+    ADD_JOB: 'ADD_JOB',
+}
+
+export default JobActionTypes;
