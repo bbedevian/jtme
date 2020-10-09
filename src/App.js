@@ -8,8 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
+
       <h1>This is going to be the main page?</h1>
       <JobsTable></JobsTable>
+
     </div>
   );
 }
