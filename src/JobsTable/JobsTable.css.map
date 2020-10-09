@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,KAAK,CAAC;EACH,gBAAgB,EAAE,GAAG;CACvB;;AAED,AAAA,iBAAiB,CAAC;EACf,gBAAgB,EAAE,OAAO;CAC3B",
+    "sources": [
+        "JobsTable.scss"
+    ],
+    "names": [],
+    "file": "JobsTable.css"
+}
