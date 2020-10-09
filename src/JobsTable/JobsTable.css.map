@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,KAAK,CAAC;EACH,gBAAgB,EAAE,GAAG;CACvB",
+    "mappings": "AACA,AAAA,KAAK,CAAC;EACH,gBAAgB,EAAE,GAAG;CACvB;;AAED,AAAA,iBAAiB,CAAC;EACf,gBAAgB,EAAE,OAAO;CAC3B",
     "sources": [
         "JobsTable.scss"
     ],

@@ -1,15 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './JobsTable.scss'
 // Bootstrap Imports
 import Table from 'react-bootstrap/Table'
 import Container from "react-bootstrap/Container"
+import JobDetailModal from '../JobDetailModal/JobDetailModal'
 
 function JobsTable(){
+   const [modalShow, setModalShow] = useState(false)
+   const handleClose = () => setModalShow(false)
+   const handleOpen = () => setModalShow(true)
    return(
       <>
-         <div id="jobs">Jobs table component</div>
          <Container>
-
             <Table id="jobs-table" striped bordered hover>
                <thead id="job-table-header">
                   <tr>
@@ -20,7 +22,7 @@ function JobsTable(){
                   </tr>
                </thead>
                <tbody>
-                  <tr>
+                  <tr onClick={handleOpen}>
                      <td>Flatiron School</td>
                      <td>Front End Developer</td>
                      <td>09/27/20290</td>
@@ -40,6 +42,7 @@ function JobsTable(){
                   </tr>
                </tbody>
             </Table>
+            <JobDetailModal show={modalShow} onHide={handleClose}></JobDetailModal>
          </Container>
       </>
    )
