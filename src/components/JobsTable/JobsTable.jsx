@@ -11,7 +11,8 @@ function JobsTable(props){
    const [modalShow, setModalShow] = useState(false)
    const handleClose = () => setModalShow(false)
    const handleOpen = () => setModalShow(true)
-   if(props.jobs){console.log(props.jobs[0].lastContacted.toDate())}
+   
+   if(props.jobs) console.log(props.jobs[0].lastContacted.split('-'))
    return(
       <>
          <Container>
@@ -25,11 +26,16 @@ function JobsTable(props){
                   </tr>
                </thead>
                <tbody>
-                  {props.jobs ? props.jobs.map(job => 
-                     <JobRow key={job.id} companyName={job.company} jobStatus={job.status} jobTitle={job.jobTitle} 
-                     lastContacted={job.lastContacted.toDate().getMonth()+1 + '/' + job.lastContacted.toDate().getDate()+ '/' + job.lastContacted.toDate().getFullYear()}
-                     />
-                  ):null}
+                  {props.jobs ? props.jobs.map((job) => {
+                        let contactDate = job.lastContacted.split('-')
+                        let year = contactDate[0]
+                        let month = contactDate[1]
+                        let day = contactDate[2]
+
+                        return <JobRow key={job.id} companyName={job.company} jobStatus={job.status} jobTitle={job.jobTitle} 
+                        lastContacted={month + '/' + day + '/' + year}
+                        />
+                  }) : null}
                </tbody>
             </Table>
             <JobDetailModal show={modalShow} onHide={handleClose}></JobDetailModal>
