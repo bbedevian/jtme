@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css'
-import JobsTable from './coponents/JobsTable/JobsTable'
+import JobsTable from './components/JobsTable/JobsTable'
 
 //css min import for bootstrap components to work as expected
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AddJob from './coponents/add-job/add-job.component';
+import AddJob from './components/add-job/add-job.component';
 
 function App() {
   return (
