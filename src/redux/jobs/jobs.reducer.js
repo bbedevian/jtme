@@ -1,4 +1,4 @@
-import JobsActionTypes from './jobs.types'
+import JobActionTypes from './jobs.types'
 
 const INITIAL_STATE = {
 jobs: null,
@@ -9,24 +9,24 @@ errorMessage: ''
 
 const jobsReducer = (state = INITIAL_STATE,  action) => {
     switch(action.type){
-        case JobsActionTypes.FETCH_JOBS_START:
+        case JobActionTypes.FETCH_JOBS_START:
             return {
                 ...state,
                 isFetching: true
             };
-        case JobsActionTypes.FETCH_JOBS_SUCCESS: 
+        case JobActionTypes.FETCH_JOBS_SUCCESS: 
             return {
                 ...state, 
                 isFetching: false,
                 jobs: action.payload
             };
-        case JobsActionTypes.FETCH_JOBS_FAILURE:
+        case JobActionTypes.FETCH_JOBS_FAILURE:
             return {
                 ...state,
                 isFetching: false,
                 errorMessage: action.payload
             };
-        case JobsActionTypes.ADD_JOB:
+        case JobActionTypes.ADD_JOB:
             return {
                 ...state,
                 jobs: [...state.jobs, action.payload]

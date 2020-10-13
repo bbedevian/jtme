@@ -31,3 +31,17 @@ var firebaseConfig = {
         console.error("Error adding document: ", error);
     });
   }
+
+  export const convertJobsSnapshotToMap = jobs => {
+    const transformedJobs = jobs.docs.map(doc => {
+      const { company, status } = doc.data();
+  
+      return {
+        id: doc.id,
+        company,
+        status
+      };
+    });
+  
+    return transformedJobs
+  }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {addJobToUserJobsCollection} from '../../firebase/firebase.utils'
+import { fetchJobsStart } from '../../redux/jobs/jobs.actions';
 
 class AddJob extends Component {
 
@@ -24,7 +25,9 @@ class AddJob extends Component {
     }
 
     componentDidMount(){
-        console.log('checking user redux', this.props.user)
+        const {fetchJobsStart, user} = this.props
+        console.log('this.props.user :>> ', user);
+        fetchJobsStart(user)
     }
 
     render() {
@@ -47,9 +50,16 @@ class AddJob extends Component {
     }
 }
 
-const msp = ({user}) => ({
+const msp = ({user, jobs}) => ({
     user: user.currentUser,
+    jobs: jobs.jobs
 })
 
-export default connect(msp)(AddJob);
+const mdp = (dispatch) => {
+    return {
+      fetchJobsStart: (user) => dispatch(fetchJobsStart(user))
+    }
+  }
+
+export default connect(msp, mdp)(AddJob);
 
