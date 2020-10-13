@@ -16,4 +16,18 @@ var firebaseConfig = {
 
   export const firestore = firebase.firestore();
 
-  export default firebase;
+  export const addJobToUserJobsCollection = (user, job) => {
+    const collectionRef = firestore.collection('users');
+    const userDoc = collectionRef.doc(user.id);
+    const userJobs = userDoc.collection('jobs');
+
+    userJobs.add(job)
+    .then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id);
+      return docRef.id
+
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+  }
