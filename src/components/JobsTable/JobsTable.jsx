@@ -1,14 +1,17 @@
 import React, {useState} from 'react'
+import {connect} from 'react-redux'
 import './JobsTable.scss'
 // Bootstrap Imports
 import Table from 'react-bootstrap/Table'
 import Container from "react-bootstrap/Container"
 import JobDetailModal from '../JobDetailModal/JobDetailModal'
+import JobRow from '../JobRow/JobRow'
 
-function JobsTable(){
+function JobsTable(props){
    const [modalShow, setModalShow] = useState(false)
    const handleClose = () => setModalShow(false)
    const handleOpen = () => setModalShow(true)
+   if(props.jobs){console.log(props.jobs[0].lastContacted.toDate())}
    return(
       <>
          <Container>
@@ -22,24 +25,11 @@ function JobsTable(){
                   </tr>
                </thead>
                <tbody>
-                  <tr onClick={handleOpen}>
-                     <td>Flatiron School</td>
-                     <td>Front End Developer</td>
-                     <td>09/27/20290</td>
-                     <td> Warm</td>
-                  </tr>
-                  <tr>
-                     <td>Flatiron School</td>
-                     <td>Front End Developer</td>
-                     <td>09/27/20290</td>
-                     <td> Warm</td>
-                  </tr>
-                  <tr>
-                     <td>Flatiron School</td>
-                     <td>Front End Developer</td>
-                     <td>09/27/20290</td>
-                     <td> Warm</td>
-                  </tr>
+                  {props.jobs ? props.jobs.map(job => 
+                     <JobRow key={job.id} companyName={job.company} jobStatus={job.status} jobTitle={job.jobTitle} 
+                     lastContacted={job.lastContacted.toDate().getMonth()+1 + '/' + job.lastContacted.toDate().getDate()+ '/' + job.lastContacted.toDate().getFullYear()}
+                     />
+                  ):null}
                </tbody>
             </Table>
             <JobDetailModal show={modalShow} onHide={handleClose}></JobDetailModal>
@@ -48,4 +38,8 @@ function JobsTable(){
    )
 }
 
-export default JobsTable
+const mapStateToProps = (state) => ({
+   jobs: state.jobs.jobs
+})
+
+export default connect(mapStateToProps)(JobsTable)

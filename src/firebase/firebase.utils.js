@@ -34,12 +34,14 @@ var firebaseConfig = {
 
   export const convertJobsSnapshotToMap = jobs => {
     const transformedJobs = jobs.docs.map(doc => {
-      const { company, status } = doc.data();
+      const { company, status, jobTitle,  lastContacted } = doc.data();
   
       return {
         id: doc.id,
         company,
-        status
+        status,
+        lastContacted,
+        jobTitle
       };
     });
   
