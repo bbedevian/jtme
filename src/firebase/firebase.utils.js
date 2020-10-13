@@ -32,14 +32,16 @@ var firebaseConfig = {
     });
   }
 
-  export const convertJobsSnapshotToMap = (snapShot) => {
-    const transformedJobs = snapShot.docs.map(doc => {
-      const { company, status } = doc.data();
-      // const interactionsRef = firestore.collection('users').doc(user.id).collection('jobs').doc(doc.id).collection('interactions')
+  export const convertJobsSnapshotToMap = jobs => {
+    const transformedJobs = jobs.docs.map(doc => {
+      const { company, status, jobTitle,  lastContacted } = doc.data();
+
       return {
         id: doc.id,
         company,
-        status
+        status,
+        lastContacted,
+        jobTitle
       };
     });
   

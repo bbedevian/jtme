@@ -8,6 +8,8 @@ class AddJob extends Component {
     state = {
         company: '',
         status: '',
+        jobTitle: '',
+        lastContacted: ''
     }
 
     handleChange = e => {
@@ -20,7 +22,9 @@ class AddJob extends Component {
         addJobToUserJobsCollection(this.props.user, this.state)
         this.setState({
             company: '',
-            status: ''
+            status: '',
+            jobTitle: '',
+            lastContacted: ''
         })
     }
 
@@ -31,13 +35,21 @@ class AddJob extends Component {
     }
 
     render() {
-        const {company, status } = this.state
+        const {company, status, jobTitle, lastContacted } = this.state
         return (
             <div className='add-job'>
                 <form onSubmit={this.handleSubmit}>
                 <label>
                     Company:
                     <input name='company' value={company} onChange={this.handleChange}/>
+                </label>
+                <label>
+                    Job Title:
+                    <input name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
+                </label>
+                <label>
+                    Last Contacted:
+                    <input name='lastContacted' type="date" value={lastContacted} onChange={this.handleChange}/>
                 </label>
                 <label>
                     Status:
