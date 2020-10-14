@@ -13,7 +13,7 @@ function JobRow(props) {
          <td>{props.lastContacted}</td>
          <td>{props.jobStatus}</td>
       </tr>
-      <JobDetailModal  jobTitle={props.jobTitle} companyName={props.companyName} show={modalShow} onHide={()=> setModalShow(false)}></JobDetailModal>
+      <JobDetailModal jobTitle={props.jobTitle} companyName={props.companyName} show={modalShow} onHide={()=> setModalShow(false)}></JobDetailModal>
       </>
    )
 }
