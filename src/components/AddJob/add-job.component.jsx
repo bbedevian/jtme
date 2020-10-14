@@ -3,6 +3,14 @@ import {connect} from 'react-redux'
 import {addJobToUserJobsCollection} from '../../firebase/firebase.utils'
 import { fetchJobsStart } from '../../redux/jobs/jobs.actions';
 
+//BootStrap Imports
+import Container from 'react-bootstrap/Container'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+
+//css import
+import './add-job.scss'
+
 class AddJob extends Component {
 
     state = {
@@ -37,27 +45,27 @@ class AddJob extends Component {
     render() {
         const {company, status, jobTitle, lastContacted } = this.state
         return (
-            <div className='add-job'>
-                <form onSubmit={this.handleSubmit}>
-                <label>
-                    Company:
-                    <input name='company' value={company} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Job Title:
-                    <input name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Last Contacted:
-                    <input name='lastContacted' type="date" value={lastContacted} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Status:
-                    <input name='status' value={status} onChange={this.handleChange}/>
-                </label>
-                    <input type='submit'/>
-                </form>
-            </div>
+            <Container className='add-job'>
+                <Form id='add-job-form' onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="companyForm">
+                        <Form.Label>Company:</Form.Label>
+                        <Form.Control name='company' value={company} onChange={this.handleChange}/>
+                    </Form.Group>
+                    <Form.Group controlId="jobTitleForm">
+                        <Form.Label>JobT Title:</Form.Label>
+                        <Form.Control name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
+                    </Form.Group>
+                    <Form.Group controlId="companyForm">
+                        <Form.Label>Last Contacted:</Form.Label>
+                        <Form.Control type="date" name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
+                    </Form.Group>
+                    <Form.Group controlId="companyForm">
+                        <Form.Label>Status:</Form.Label>
+                        <Form.Control name='status' value={status} onChange={this.handleChange}/>
+                    </Form.Group>
+                    <Button variant='success' type='submit'>Add Job</Button>
+                </Form>
+            </Container>
         ); 
     }
 }
