@@ -44,7 +44,6 @@ class AddJob extends Component {
 
     render() {
         const {company, status, jobTitle, lastContacted } = this.state
-        console.log("🍩", status)
         return (
             <Container className='add-job'>
                 <Form id='add-job-form' onSubmit={this.handleSubmit}>

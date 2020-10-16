@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 
 function EditButton(props) {
    return (
-			<Button hidden={!props.show} class="editBtn" size="sm">
+			<Button hidden={!props.show} size="sm">
 				<svg
 								width="1em"
 								height="1em"
