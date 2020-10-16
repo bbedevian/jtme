@@ -44,6 +44,7 @@ class AddJob extends Component {
 
     render() {
         const {company, status, jobTitle, lastContacted } = this.state
+        console.log("🍩", status)
         return (
             <Container className='add-job'>
                 <Form id='add-job-form' onSubmit={this.handleSubmit}>
@@ -61,7 +62,14 @@ class AddJob extends Component {
                     </Form.Group>
                     <Form.Group controlId="companyForm">
                         <Form.Label>Status:</Form.Label>
-                        <Form.Control name='status' value={status} onChange={this.handleChange}/>
+                        <Form.Control name="status" as="select" value={status} onChange={this.handleChange} >
+                            <option disabled selected></option>
+                            <option value="saved">Saved</option>
+                            <option value="applied">Applied</option>
+                            <option value="interviewing">Interviewing</option>
+                            <option value="closed">Closed</option>
+                        </Form.Control>
+                        {/* <Form.Control name='status' value={status} onChange={this.handleChange}/> */}
                     </Form.Group>
                     <Button variant='success' type='submit'>Add Job</Button>
                 </Form>

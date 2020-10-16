@@ -4,16 +4,12 @@ import './JobsTable.scss'
 // Bootstrap Imports
 import Table from 'react-bootstrap/Table'
 import Container from "react-bootstrap/Container"
-import JobDetailModal from '../JobDetailModal/JobDetailModal'
 import JobRow from '../JobRow/JobRow'
 
 function JobsTable(props){
    const [modalShow, setModalShow] = useState(false)
    const handleClose = () => setModalShow(false)
    const handleOpen = () => setModalShow(true)
-
-   console.log(modalShow)
-   if(props.jobs) console.log(props.jobs[0].lastContacted.split('-'))
    return(
       <>
          <Container>
