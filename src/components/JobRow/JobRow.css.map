@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,CAAA;EACZ,KAAK,EAAC,KAAK;CACb;;AAED,AAAA,iBAAiB,CAAC;EACf,gBAAgB,EAAE,OAAO;EACzB,OAAO,EAAE,YAAY;EACrB,OAAO,EAAE,WAAW;EACpB,aAAa,EAAE,GAAG;EAClB,YAAY,EAAE,IAAI;CAEpB",
+    "sources": [
+        "JobRow.scss"
+    ],
+    "names": [],
+    "file": "JobRow.css"
+}
