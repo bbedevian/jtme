@@ -12,7 +12,7 @@ function EditRow(props){
          <td><Form.Control type="text" defaultValue={props.companyName}/></td>
          <td><Form.Control type="text" defaultValue={props.jobTitle}/></td>
          <td><Form.Control type="text" defaultValue={props.lastContacted}/></td>
-         <td><Form.Control custom as='select' defaultValue={props.status}>
+         <td className="status-td"><Form.Control custom as='select' defaultValue={props.status}>
                <option disabled selected></option>
                <option value="saved">Saved</option>
                <option value="applied">Applied</option>
