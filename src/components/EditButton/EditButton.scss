@@ -1,2 +1,13 @@
+.btn-edit {
+   background-color: white;
+   margin-left: 25px;
+   transition: all .4s ease-in-out;
+   width: 64px;
+   height: 64px;
+}
 
+.btn-edit:hover > svg{
+   color: #007bff;
+   transform: scale(1.5);
+}
 

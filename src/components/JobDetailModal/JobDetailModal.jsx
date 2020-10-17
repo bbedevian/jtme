@@ -2,6 +2,7 @@
 import React, {useState} from 'react'
 //component imports
 import InteractionTable from '../InteractionTable/InteractionTable'
+import EditButton from '../EditButton/EditButton'
 //bootstrap imports
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
@@ -14,7 +15,7 @@ function JobDetailModal(props) {
    return(
       <Modal id="fullscreenModal" show={props.show} onHide={props.onHide}>
          <Modal.Header closeButton>
-            <Modal.Title>{props.jobTitle} @ {props.companyName}</Modal.Title>
+            <Modal.Title>{props.jobTitle} @ {props.companyName}<EditButton show={true}/></Modal.Title>
          </Modal.Header>
             <Modal.Body>
             <InteractionTable/>

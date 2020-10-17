@@ -2,8 +2,6 @@ import React from 'react';
 import './App.css'
 import JobsTable from './components/JobsTable/JobsTable'
 
-//css min import for bootstrap components to work as expected
-import 'bootstrap/dist/css/bootstrap.min.css';
 import AddJob from './components/AddJob/add-job.component';
 
 function App() {

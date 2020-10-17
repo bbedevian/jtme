@@ -62,7 +62,7 @@ class AddJob extends Component {
                     <Form.Group controlId="companyForm">
                         <Form.Label>Status:</Form.Label>
                         <Form.Control name="status" as="select" value={status} onChange={this.handleChange} >
-                            <option disabled selected></option>
+                            <option disabled defaultValue></option>
                             <option value="saved">Saved</option>
                             <option value="applied">Applied</option>
                             <option value="interviewing">Interviewing</option>

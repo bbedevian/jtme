@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button'
 
 function EditButton(props) {
    return (
-			<Button hidden={!props.show} size="sm">
+			<Button variant="edit" hidden={!props.show} size="sm">
 				<svg
 								width="1em"
 								height="1em"
 								viewBox="0 0 16 16"
-								class="bi bi-pencil-fill"
+								className="bi bi-pencil-fill"
 								fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg"
 							>
