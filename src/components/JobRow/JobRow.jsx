@@ -19,6 +19,8 @@ function JobRow(props) {
 					<JobDetailModal
 						jobTitle={props.jobTitle}
 						companyName={props.companyName}
+						lastContacted={props.lastContacted}
+						jobStatus={props.jobStatus}
 						show={modalShow}
 						onHide={() => setModalShow(false)}
 					></JobDetailModal>
