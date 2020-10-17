@@ -30,7 +30,13 @@ function JobsTable(props){
                               let day = contactDate[2]
                               return (
                                  <>
-                                    <JobRow handleOpen={handleOpen} handleClose={handleClose} key={job.id} companyName={job.company} jobStatus={job.status} jobTitle={job.jobTitle} 
+                                    <JobRow 
+                                    key={job.id} 
+                                    handleOpen={handleOpen} handleClose={handleClose} 
+                                    jobId={job.id}
+                                    companyName={job.company} 
+                                    jobStatus={job.status} 
+                                    jobTitle={job.jobTitle} 
                                     lastContacted={month + '/' + day + '/' + year}
                                     />
                                     

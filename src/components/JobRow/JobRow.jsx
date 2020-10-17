@@ -7,7 +7,6 @@ import EditRow from "../EditRow/EditRow";
 
 function JobRow(props) {
 	const [modalShow, setModalShow] = useState(false);
-
 	return (
 		<>
 			<tr className="jobRow"  onClick={() => setModalShow(true)}>
@@ -17,6 +16,7 @@ function JobRow(props) {
 						<td>{props.jobStatus}</td>
 					</tr>
 					<JobDetailModal
+						jobId={props.jobId}
 						jobTitle={props.jobTitle}
 						companyName={props.companyName}
 						lastContacted={props.lastContacted}

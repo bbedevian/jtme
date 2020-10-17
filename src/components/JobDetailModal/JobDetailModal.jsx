@@ -22,6 +22,7 @@ function JobDetailModal(props) {
             <Modal.Title>Edit this Job</Modal.Title>
          </Modal.Header>
          <Modal.Body>
+            <p>Job Id #: {props.jobId}</p>
             <Form.Label>Company Name:</Form.Label>
             <Form.Control defaultValue={props.companyName}/>
             <Form.Label>Job Title:</Form.Label>
