@@ -17,6 +17,7 @@ function JobRow(props) {
 						<td>{props.jobStatus}</td>
 					</tr>
 					<JobDetailModal
+						jobID={props.jobID}
 						jobTitle={props.jobTitle}
 						companyName={props.companyName}
 						lastContacted={props.lastContacted}

@@ -17,6 +17,12 @@ import './JobDetailModal.scss'
 function JobDetailModal(props) {
    const [editing, setEditing] = useState(false)
    let title;
+   
+   useEffect((props) => {
+      console.log('Modal props :>> ', props);
+      // props.fetchInteractionsStart(props.user, props.jobID)
+   }, [])
+   
    if(editing) {
       title = (
          <>

@@ -10,7 +10,7 @@ export function* fetchInteractionsAsync(action) {
         const collectionRef = firestore.collection('users');
         const userDoc = collectionRef.doc(action.user.id);
         const userJobs = userDoc.collection('jobs');
-        const job = userJobs.doc(action.job.id)
+        const job = userJobs.doc(action.jobID)
         const interactions = job.collection('interactions')
         const snapShot = yield interactions.get()
         const interactionsMap = yield call(convertInteractionsSnapshotToMap, snapShot)
