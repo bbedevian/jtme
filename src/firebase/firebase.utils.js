@@ -23,7 +23,22 @@ var firebaseConfig = {
 
     userJobs.add(job)
     .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Job written with ID: ", docRef.id);
+      return docRef.id
+
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+  }
+  export const addInteractionToJob = (user, jobID, interaction) => {
+    const collectionRef = firestore.collection('users');
+    const userDoc = collectionRef.doc(user.id);
+    const interactions = userDoc.collection('jobs').doc(jobID).collection('interactions')
+
+    interactions.add(interaction)
+    .then(function(docRef) {
+      console.log("Interaction written with ID: ", docRef.id);
       return docRef.id
 
     })
@@ -46,4 +61,18 @@ var firebaseConfig = {
     });
   
     return transformedJobs
+  }
+
+  export const convertInteractionsSnapshotToMap = interactions => {
+    const transformedInteractions = interactions.docs.map(doc => {
+      const { activity, date } = doc.data();
+
+      return {
+        id: doc.id,
+        activity,
+        date
+      };
+    });
+  
+    return transformedInteractions
   }

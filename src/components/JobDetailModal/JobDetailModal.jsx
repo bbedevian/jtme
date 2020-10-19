@@ -1,5 +1,8 @@
 //React imports
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+// Redux  imports
+import {connect} from 'react-redux'
+import { fetchInteractionsStart } from '../../redux/interactions/interactions.actions';
 //component imports
 import InteractionTable from '../InteractionTable/InteractionTable'
 //bootstrap imports
@@ -10,6 +13,10 @@ import './JobDetailModal.scss'
 
 
 function JobDetailModal(props) {
+
+  useEffect(() => {
+      fetchInteractionsStart(props.user, props.jobID)
+  })
    
    return(
       <Modal id="fullscreenModal" show={props.show} onHide={props.onHide}>
@@ -26,4 +33,15 @@ function JobDetailModal(props) {
       </Modal>
    )
 }
-export default JobDetailModal
+
+const msp = ({user}) => ({
+   user: user.currentUser,
+})
+
+const mdp = (dispatch) => {
+   return {
+     fetchInteractionsStart: (user, job) => dispatch(fetchInteractionsStart(user, job))
+   }
+ }
+
+export default connect(msp, mdp)(JobDetailModal)
