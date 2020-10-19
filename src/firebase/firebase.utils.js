@@ -1,5 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import {store} from '../redux/store'
+import { addJobToState } from '../redux/jobs/jobs.actions';
+
 
 var firebaseConfig = {
     apiKey: "AIzaSyDMaarRN0olc8PyrRur92EaZ5P7hmgzFS8",
@@ -16,14 +19,31 @@ var firebaseConfig = {
 
   export const firestore = firebase.firestore();
 
-  export const addJobToUserJobsCollection = (user, job) => {
+  const state = store.getState();
+  const currentUserID = state.user.currentUser.id;
+
+  export const addJobToUserJobsCollection = (job) => {
     const collectionRef = firestore.collection('users');
-    const userDoc = collectionRef.doc(user.id);
+    const userDoc = collectionRef.doc(currentUserID);
     const userJobs = userDoc.collection('jobs');
 
     userJobs.add(job)
     .then(function(docRef) {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Job written with ID: ", docRef.id);
+      store.dispatch(addJobToState({...job, id: docRef.id}))
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+  }
+  export const addInteractionToJob = (jobID, interaction) => {
+    const collectionRef = firestore.collection('users');
+    const userDoc = collectionRef.doc(currentUserID);
+    const interactions = userDoc.collection('jobs').doc(jobID).collection('interactions')
+
+    interactions.add(interaction)
+    .then(function(docRef) {
+      console.log("Interaction written with ID: ", docRef.id);
       return docRef.id
 
     })
@@ -32,10 +52,13 @@ var firebaseConfig = {
     });
   }
 
+  export const updateJob = ()  => {
+
+  }
+
   export const convertJobsSnapshotToMap = jobs => {
     const transformedJobs = jobs.docs.map(doc => {
       const { company, status, jobTitle,  lastContacted } = doc.data();
-
       return {
         id: doc.id,
         company,
@@ -46,4 +69,18 @@ var firebaseConfig = {
     });
   
     return transformedJobs
+  }
+
+  export const convertInteractionsSnapshotToMap = interactions => {
+    const transformedInteractions = interactions.docs.map(doc => {
+      const { activity, date } = doc.data();
+
+      return {
+        id: doc.id,
+        activity,
+        date
+      };
+    });
+  
+    return transformedInteractions
   }

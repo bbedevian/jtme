@@ -25,9 +25,10 @@ class AddJob extends Component {
         this.setState({[name]: value})
     }
 
+    // not liking the async but runs. document ID currently saying undefined
     handleSubmit = e => {
         e.preventDefault();
-        addJobToUserJobsCollection(this.props.user, this.state)
+        addJobToUserJobsCollection(this.state)
         this.setState({
             company: '',
             status: '',
@@ -37,9 +38,7 @@ class AddJob extends Component {
     }
 
     componentDidMount(){
-        const {fetchJobsStart, user} = this.props
-        console.log('this.props.user :>> ', user);
-        fetchJobsStart(user)
+        this.props.fetchJobsStart()
     }
 
     render() {
@@ -77,14 +76,13 @@ class AddJob extends Component {
     }
 }
 
-const msp = ({user, jobs}) => ({
-    user: user.currentUser,
+const msp = ({jobs}) => ({
     jobs: jobs.jobs
 })
 
 const mdp = (dispatch) => {
     return {
-      fetchJobsStart: (user) => dispatch(fetchJobsStart(user))
+      fetchJobsStart: () => dispatch(fetchJobsStart()),
     }
   }
 

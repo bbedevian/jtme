@@ -15,3 +15,8 @@ export const fetchJobsFailure = errorMessage => ({
     type: JobActionTypes.FETCH_JOBS_FAILURE,
     payload: errorMessage
   });
+
+  export const addJobToState = job => ({
+    type: JobActionTypes.ADD_JOB,
+    payload: job
+  });

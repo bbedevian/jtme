@@ -1,6 +1,8 @@
 //React imports
-import React, {useState} from 'react'
-import connect from "react-redux"
+import React, {useState, useEffect} from 'react'
+// Redux  imports
+import {connect} from 'react-redux'
+import { fetchInteractionsStart } from '../../redux/interactions/interactions.actions';
 //component imports
 import InteractionTable from '../InteractionTable/InteractionTable'
 import EditButton from '../EditButton/EditButton'
@@ -15,6 +17,12 @@ import './JobDetailModal.scss'
 function JobDetailModal(props) {
    const [editing, setEditing] = useState(false)
    let title;
+   
+   useEffect((props) => {
+      console.log('Modal props :>> ', props);
+      // props.fetchInteractionsStart(props.user, props.jobID)
+   }, [])
+   
    if(editing) {
       title = (
          <>
@@ -66,9 +74,14 @@ function JobDetailModal(props) {
    )
 }
 
-//get this single job and map to props? 
-const mapStateToProps = state => {
+const msp = ({user}) => ({
+   user: user.currentUser,
+})
 
-}
+const mdp = (dispatch) => {
+   return {
+     fetchInteractionsStart: (user, job) => dispatch(fetchInteractionsStart(user, job))
+   }
+ }
 
-export default JobDetailModal
+export default connect(msp, mdp)(JobDetailModal)
