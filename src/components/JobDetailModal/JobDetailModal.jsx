@@ -14,6 +14,8 @@ import './JobDetailModal.scss'
 
 function JobDetailModal(props) {
    const [editing, setEditing] = useState(false)
+   const {jobId, companyName, jobTitle, lastContacted} = props.job
+   console.log(jobId)
    let title;
    if(editing) {
       title = (
@@ -22,13 +24,13 @@ function JobDetailModal(props) {
             <Modal.Title>Edit this Job</Modal.Title>
          </Modal.Header>
          <Modal.Body>
-            <p>Job Id #: {props.jobId}</p>
+            <p>Job Id #: {jobId}</p>
             <Form.Label>Company Name:</Form.Label>
-            <Form.Control defaultValue={props.companyName}/>
+            <Form.Control defaultValue={companyName}/>
             <Form.Label>Job Title:</Form.Label>
-            <Form.Control defaultValue={props.jobTitle}/>
+            <Form.Control defaultValue={jobTitle}/>
             <Form.Label>Last Updated:</Form.Label>
-            <Form.Control defaultValue={props.lastContacted}/>
+            <Form.Control defaultValue={lastContacted}/>
             <Form.Label>Status:</Form.Label>
             <Form.Control name="status" as='select'>
                {/* need a way to get the already selected choice and input it */}
@@ -48,7 +50,7 @@ function JobDetailModal(props) {
          <>
          <Modal.Header closeButton>
             <Modal.Title>
-               {props.jobTitle} @ {props.companyName}<EditButton clicked={() => setEditing(true)} show={true}/>
+               {jobTitle} @ {companyName}<EditButton clicked={() => setEditing(true)} show={true}/>
             </Modal.Title>
          </Modal.Header>
             <Modal.Body>
