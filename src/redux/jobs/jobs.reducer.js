@@ -3,7 +3,9 @@ import JobActionTypes from './jobs.types'
 const INITIAL_STATE = {
 jobs: null,
 isFetching: false,
-errorMessage: ''
+errorMessage: '',
+modalShow: false,
+selectedJob: null
 }
 
 
@@ -30,6 +32,11 @@ const jobsReducer = (state = INITIAL_STATE,  action) => {
             return {
                 ...state,
                 jobs: [...state.jobs, action.payload]
+            };
+        case JobActionTypes.SELECT_JOB:
+            return {
+                ...state,
+                selectedJob: {...action.payload}
             }
         default: return state
     }

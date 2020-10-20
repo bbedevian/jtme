@@ -20,3 +20,13 @@ export const fetchJobsFailure = errorMessage => ({
     type: JobActionTypes.ADD_JOB,
     payload: job
   });
+
+export const selectJob = job => ({
+  type: JobActionTypes.SELECT_JOB,
+  payload: job
+});
+
+export const showModal = job => ({
+  type: JobActionTypes.SHOW_MODAL,
+  payload: job
+})

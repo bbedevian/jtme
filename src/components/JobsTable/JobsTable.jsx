@@ -5,10 +5,13 @@ import './JobsTable.scss'
 import Table from 'react-bootstrap/Table'
 import Container from "react-bootstrap/Container"
 import JobRow from '../JobRow/JobRow'
+import JobDetailModal from '../JobDetailModal/JobDetailModal'
 
 function JobsTable(props){
    const [modalShow, setModalShow] = useState(false)
-   const handleClose = () => setModalShow(false)
+   const handleClose = () => {
+      setModalShow(false)
+   }
    const handleOpen = () => setModalShow(true)
    return(
       <>
@@ -24,20 +27,13 @@ function JobsTable(props){
                      </thead>
                      <tbody>
                         {props.jobs ? props.jobs.map((job) => {
-                              let contactDate = job.lastContacted.split('-')
-                              let year = contactDate[0]
-                              let month = contactDate[1]
-                              let day = contactDate[2]
                               return (
                                  <>
                                     <JobRow 
                                     key={job.id} 
-                                    handleOpen={handleOpen} handleClose={handleClose} 
-                                    jobId={job.id}
-                                    companyName={job.company} 
-                                    jobStatus={job.status} 
-                                    jobTitle={job.jobTitle} 
-                                    lastContacted={month + '/' + day + '/' + year}
+                                    handleOpen={handleOpen}
+                                    handleClose={handleClose} 
+                                    job={job}
                                     />
                                     
                                  </>
@@ -45,13 +41,20 @@ function JobsTable(props){
                         }) : null}
                      </tbody>
                   </Table>
+                  if(props.selectedJob !== null){
+                     <JobDetailModal onHide={handleClose}  show={modalShow} job={props.selectedJob}/>
+                  }
          </Container>
       </>
    )
 }
 
-const mapStateToProps = (state) => ({
-   jobs: state.jobs.jobs
+const mapStateToProps = state => ({
+   jobs: state.jobs.jobs,
+   selectedJob: state.jobs.selectedJob
+})
+const mapDispatchToProps = dispatch => ({
+
 })
 
-export default connect(mapStateToProps)(JobsTable)
+export default connect(mapStateToProps, mapDispatchToProps)(JobsTable)
