@@ -15,7 +15,6 @@ import "./JobDetailModal.scss";
 
 function JobDetailModal(props) {
 	const [editing, setEditing] = useState(false);
-		// let { jobId, companyName, jobTitle, lastContacted } = props.job;
 	let title;
 
 	useEffect((props) => {
@@ -30,15 +29,15 @@ function JobDetailModal(props) {
 					<Modal.Title>Edit this Job</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<p>Job Id #: something</p>
+					<p>Job Id #: {props.selectedJob.id}</p>
 					<Form.Label>Company Name:</Form.Label>
-					<Form.Control defaultValue="testing" />
+					<Form.Control defaultValue={props.selectedJob.company} />
 					<Form.Label>Job Title:</Form.Label>
-					<Form.Control defaultValue='testing' />
+					<Form.Control defaultValue={props.selectedJob.jobTitle} />
 					<Form.Label>Last Updated:</Form.Label>
-					<Form.Control defaultValue='testing' />
+					<Form.Control defaultValue={props.selectedJob.lastContacted} />
 					<Form.Label>Status:</Form.Label>
-					<Form.Control name="status" as="select">
+					<Form.Control name="status" as="select" defaultValue={props.selectedJob.status}>
 						{/* need a way to get the already selected choice and input it */}
 						<option value="saved">Saved</option>
 						<option value="applied">Applied</option>
@@ -48,6 +47,7 @@ function JobDetailModal(props) {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button onClick={() => setEditing(false)}>Stop Editing</Button>
+					<Button onClick={() => setEditing(false)}>Save Changes</Button>
 				</Modal.Footer>
 			</>
 		);
@@ -56,7 +56,7 @@ function JobDetailModal(props) {
 			<>
 				<Modal.Header closeButton>
 					<Modal.Title>
-						testing @ testing
+						{props.selectedJob.jobTitle} @ {props.selectedJob.company}
 						<EditButton clicked={() => setEditing(true)} show={true} />
 					</Modal.Title>
 				</Modal.Header>
@@ -83,8 +83,9 @@ function JobDetailModal(props) {
 	);
 }
 
-const msp = ({ user }) => ({
-	user: user.currentUser,
+const msp = state => ({
+	user: state.user.currentUser,
+	selectedJob: state.jobs.selectedJob
 });
 
 const mdp = (dispatch) => {
