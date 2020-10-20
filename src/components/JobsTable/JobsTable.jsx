@@ -13,6 +13,7 @@ function JobsTable(props){
       setModalShow(false)
    }
    const handleOpen = () => setModalShow(true)
+
    return(
       <>
          <Container>
@@ -41,9 +42,8 @@ function JobsTable(props){
                         }) : null}
                      </tbody>
                   </Table>
-                  if(props.selectedJob !== null){
-                     <JobDetailModal onHide={handleClose}  show={modalShow} job={props.selectedJob}/>
-                  }
+                  {props.selectedJob? <JobDetailModal onHide={handleClose}  show={modalShow} job={props.selectedJob}/>
+                  : null}
          </Container>
       </>
    )

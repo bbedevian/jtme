@@ -1,0 +1,15 @@
+.status-td {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.btn-info {
+  position: relative;
+  left: 30%;
+}
+/*# sourceMappingURL=EditRow.css.map */

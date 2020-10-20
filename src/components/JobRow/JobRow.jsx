@@ -20,7 +20,7 @@ function JobRow(props) {
 	let day = contactDate[2]
 
 	const showModalWithSelectedJob = () => {
-		props.selectJob(props)
+		props.selectJob(props.job)
 		props.handleOpen()
 	}
 
@@ -31,6 +31,7 @@ function JobRow(props) {
 						<td>{jobTitle}</td>
 						<td>{month + '/' + day + '/' + year}</td>
 						<td>{status}</td>
+						<td className="testing">√</td>
 					</tr>
 		</>
 	);

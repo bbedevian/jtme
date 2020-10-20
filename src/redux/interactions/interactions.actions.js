@@ -1,8 +1,7 @@
 import InteractionsActionTypes from './interactions.types'
 
-export const fetchInteractionsStart = (user, jobID) => ({
+export const fetchInteractionsStart = () => ({
     type: InteractionsActionTypes.FETCH_INTERACTIONS_START,
-    user, jobID
   });
 
   

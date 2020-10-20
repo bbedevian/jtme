@@ -1,1 +1,15 @@
-/* No CSS *//*# sourceMappingURL=EditButton.css.map */
+.btn-edit {
+  background-color: white;
+  margin-left: 25px;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  width: 64px;
+  height: 64px;
+}
+
+.btn-edit:hover > svg {
+  color: #007bff;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+/*# sourceMappingURL=EditButton.css.map */

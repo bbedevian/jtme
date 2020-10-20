@@ -12,75 +12,76 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 //styling imports
 import "./JobDetailModal.scss";
+import { render } from "@testing-library/react";
 
-function JobDetailModal(props) {
-	const [editing, setEditing] = useState(false);
-	let title;
+class JobDetailModal extends React.Component {
+	state = {
+		editing: false
+	}
+	componentDidMount(){
+		this.props.fetchInteractionsStart()
 
-	useEffect((props) => {
-		console.log("Modal props :>> ", props);
-		// props.fetchInteractionsStart(props.user, props.jobID)
-	}, []);
-
-	if (editing) {
-		title = (
-			<>
-				<Modal.Header>
-					<Modal.Title>Edit this Job</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<p>Job Id #: {props.selectedJob.id}</p>
-					<Form.Label>Company Name:</Form.Label>
-					<Form.Control defaultValue={props.selectedJob.company} />
-					<Form.Label>Job Title:</Form.Label>
-					<Form.Control defaultValue={props.selectedJob.jobTitle} />
-					<Form.Label>Last Updated:</Form.Label>
-					<Form.Control defaultValue={props.selectedJob.lastContacted} />
-					<Form.Label>Status:</Form.Label>
-					<Form.Control name="status" as="select" defaultValue={props.selectedJob.status}>
-						{/* need a way to get the already selected choice and input it */}
-						<option value="saved">Saved</option>
-						<option value="applied">Applied</option>
-						<option value="interviewing">Interviewing</option>
-						<option value="closed">Closed</option>
-					</Form.Control>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button onClick={() => setEditing(false)}>Stop Editing</Button>
-					<Button onClick={() => setEditing(false)}>Save Changes</Button>
-				</Modal.Footer>
-			</>
-		);
-	} else {
-		title = (
-			<>
-				<Modal.Header closeButton>
-					<Modal.Title>
-						{props.selectedJob.jobTitle} @ {props.selectedJob.company}
-						<EditButton clicked={() => setEditing(true)} show={true} />
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<InteractionTable />
-				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="success" onClick={props.onHide}>
-						Save Changes
-					</Button>
-				</Modal.Footer>
-			</>
+	}
+	render(){
+		// const [editing, setEditing] = useState(false);
+		let title;
+		if (this.state.editing) {
+			title = (
+				<>
+					<Modal.Header>
+						<Modal.Title>Edit this Job</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<p>Job Id #: {this.props.selectedJob.id}</p>
+						<Form.Label>Company Name:</Form.Label>
+						<Form.Control defaultValue={this.props.selectedJob.company} />
+						<Form.Label>Job Title:</Form.Label>
+						<Form.Control defaultValue={this.props.selectedJob.jobTitle} />
+						<Form.Label>Last Updated:</Form.Label>
+						<Form.Control defaultValue={this.props.selectedJob.lastContacted} />
+						<Form.Label>Status:</Form.Label>
+						<Form.Control name="status" as="select" defaultValue={this.props.selectedJob.status}>
+							{/* need a way to get the already selected choice and input it */}
+							<option value="saved">Saved</option>
+							<option value="applied">Applied</option>
+							<option value="interviewing">Interviewing</option>
+							<option value="closed">Closed</option>
+						</Form.Control>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={() => this.setState({editing:false})}>Stop Editing</Button>
+						<Button onClick={() => this.setState({editing:false})}>Save Changes</Button>
+					</Modal.Footer>
+				</>
+			);
+		} else {
+			title = (
+				<>
+					<Modal.Header closeButton>
+						<Modal.Title>
+							{this.props.selectedJob.jobTitle} @ {this.props.selectedJob.company}
+							<EditButton clicked={() => this.setState({editing: true})} show={true} />
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<InteractionTable />
+					</Modal.Body>
+					<Modal.Footer>
+					</Modal.Footer>
+				</>
+			);
+		}
+		return (
+			<Modal
+				centered
+				id="fullscreenModal"
+				show={this.props.show}
+				onHide={this.props.onHide}
+			>
+				{title}
+			</Modal>
 		);
 	}
-	return (
-		<Modal
-			centered
-			id="fullscreenModal"
-			show={props.show}
-			onHide={props.onHide}
-		>
-			{title}
-		</Modal>
-	);
 }
 
 const msp = state => ({
