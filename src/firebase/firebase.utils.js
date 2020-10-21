@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import {store} from '../redux/store'
-import { addJobToState } from '../redux/jobs/jobs.actions';
+import { addJobToState, updateJobInState } from '../redux/jobs/jobs.actions';
 import {addInteractionToState} from '../redux/interactions/interactions.actions'
 
 
@@ -38,7 +38,6 @@ var firebaseConfig = {
     });
   }
   export const addInteractionToJob = (interaction) => {
-    console.log('state in redux', state)
     const currState = store.getState();
     const seletedJob = currState.jobs.selectedJob;
     const collectionRef = firestore.collection('users');
@@ -59,10 +58,20 @@ var firebaseConfig = {
     });
   }
 
-  export const updateJob = ()  => {
-    // const currState = store.getState();
-    // const seletedJobID = currState.jobs.selectedJob.id;
-
+  export const updateJob = (job)  => {
+    const currState = store.getState();
+    const selectedJobID = currState.jobs.selectedJob.id;
+    const collectionRef = firestore.collection('users');
+    const userDoc = collectionRef.doc(currentUserID);
+    const time = new Date()
+    const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
+    userDoc.collection('jobs').doc(selectedJobID).update({...job, lastContacted: dateStamp})
+    .then(() => {
+      store.dispatch(updateJobInState(job, selectedJobID, dateStamp))
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
   }
 
   export const convertJobsSnapshotToMap = jobs => {

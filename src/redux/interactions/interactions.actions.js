@@ -1,4 +1,3 @@
-import interactionsReducer from './interactions.reducer';
 import InteractionsActionTypes from './interactions.types'
 
 export const fetchInteractionsStart = () => ({

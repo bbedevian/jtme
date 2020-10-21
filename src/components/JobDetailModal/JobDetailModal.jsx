@@ -1,8 +1,9 @@
 //React imports
-import React, { useState, useEffect } from "react";
+import React from "react";
 // Redux  imports
 import { connect } from "react-redux";
 import { fetchInteractionsStart } from "../../redux/interactions/interactions.actions";
+import {updateJob} from '../../firebase/firebase.utils'
 //component imports
 import InteractionTable from "../InteractionTable/InteractionTable";
 import EditButton from "../EditButton/EditButton";
@@ -16,14 +17,43 @@ import { render } from "@testing-library/react";
 
 class JobDetailModal extends React.Component {
 	state = {
-		editing: false
+		editing: false,
+		company: '',
+		jobTitle: '',
+		status: '',
+		lastContacted: ''
 	}
 	componentDidMount(){
+		const {company, jobTitle, lastContacted, status} = this.props.selectedJob
+		this.setState({ company, jobTitle, lastContacted, status})
 		this.props.fetchInteractionsStart()
-
 	}
+
+	componentDidUpdate(prevProps){
+		const {selectedJob} = this.props
+		const {company, jobTitle, lastContacted, status, id} = selectedJob
+		if(id !== prevProps.selectedJob.id){
+			this.setState({ company, jobTitle, lastContacted, status})
+			this.props.fetchInteractionsStart()
+		}
+	}
+
+	handleChange = e => {
+        const {name, value} = e.target
+        this.setState({[name]: value})
+    }
+
+	handleEditSubmit = (e) => {
+		e.preventDefault();
+		const {company, jobTitle, lastContacted, status} = this.state
+		const job = {company, jobTitle, lastContacted, status} 
+		updateJob(job)
+		this.setState({editing:false})
+	}
+
 	render(){
 		// const [editing, setEditing] = useState(false);
+		const {company, jobTitle, lastContacted, status} = this.state
 		let title;
 		if (this.state.editing) {
 			title = (
@@ -34,13 +64,13 @@ class JobDetailModal extends React.Component {
 					<Modal.Body>
 						<p>Job Id #: {this.props.selectedJob.id}</p>
 						<Form.Label>Company Name:</Form.Label>
-						<Form.Control defaultValue={this.props.selectedJob.company} />
+						<Form.Control  name='company' value={company} onChange={this.handleChange}/>
 						<Form.Label>Job Title:</Form.Label>
-						<Form.Control defaultValue={this.props.selectedJob.jobTitle} />
+						<Form.Control name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
 						<Form.Label>Last Updated:</Form.Label>
-						<Form.Control defaultValue={this.props.selectedJob.lastContacted} />
-						<Form.Label>Status:</Form.Label>
-						<Form.Control name="status" as="select" defaultValue={this.props.selectedJob.status}>
+						<Form.Control name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
+						<Form.Label>Status:</Form.Label> 
+						<Form.Control name="status" as="select" value={status} onChange={this.handleChange} >
 							{/* need a way to get the already selected choice and input it */}
 							<option value="saved">Saved</option>
 							<option value="applied">Applied</option>
@@ -50,14 +80,14 @@ class JobDetailModal extends React.Component {
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={() => this.setState({editing:false})}>Stop Editing</Button>
-						<Button onClick={() => this.setState({editing:false})}>Save Changes</Button>
+						<Button onClick={(e) => this.handleEditSubmit(e)}>Save Changes</Button>
 					</Modal.Footer>
 				</>
 			);
 		} else {
 			title = (
 				<>
-					<Modal.Header closeButton>
+					<Modal.Header closeButton >
 						<Modal.Title>
 							{this.props.selectedJob.jobTitle} @ {this.props.selectedJob.company}
 							<EditButton clicked={() => this.setState({editing: true})} show={true} />
@@ -76,6 +106,7 @@ class JobDetailModal extends React.Component {
 				centered
 				id="fullscreenModal"
 				show={this.props.show}
+				backdrop='static'
 				onHide={this.props.onHide}
 			>
 				{title}
@@ -91,8 +122,7 @@ const msp = state => ({
 
 const mdp = (dispatch) => {
 	return {
-		fetchInteractionsStart: (user, job) =>
-         dispatch(fetchInteractionsStart(user, job))
+		fetchInteractionsStart: () => dispatch(fetchInteractionsStart()),
 	};
 };
 
