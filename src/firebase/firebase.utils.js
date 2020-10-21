@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import {store} from '../redux/store'
 import { addJobToState } from '../redux/jobs/jobs.actions';
+import {addInteractionToState} from '../redux/interactions/interactions.actions'
 
 
 var firebaseConfig = {
@@ -36,16 +37,22 @@ var firebaseConfig = {
         console.error("Error adding document: ", error);
     });
   }
-  export const addInteractionToJob = (jobID, interaction) => {
+  export const addInteractionToJob = (interaction) => {
+    console.log('state in redux', state)
+    const currState = store.getState();
+    const seletedJob = currState.jobs.selectedJob;
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
-    const interactions = userDoc.collection('jobs').doc(jobID).collection('interactions')
-
-    interactions.add(interaction)
+    const interactions = userDoc.collection('jobs').doc(seletedJob.id).collection('interactions')
+    const time = new Date()
+    const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
+    interactions.add({...interaction, date: dateStamp})
     .then(function(docRef) {
       console.log("Interaction written with ID: ", docRef.id);
-      return docRef.id
-
+      store.dispatch(addInteractionToState({...interaction, id: docRef.id}))
+      userDoc.collection('jobs').doc(seletedJob.id).update({lastContacted: dateStamp})
+      // last step is to update the jobs last touch on the frontend which can be done with an action from reducer
+      // userDoc.collection('jobs').doc(seletedJob.id).update({lastContacted: firebase.firestore.FieldValue.serverTimestamp()})
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -53,6 +60,8 @@ var firebaseConfig = {
   }
 
   export const updateJob = ()  => {
+    // const currState = store.getState();
+    // const seletedJobID = currState.jobs.selectedJob.id;
 
   }
 

@@ -1,3 +1,4 @@
+import interactionsReducer from './interactions.reducer';
 import InteractionsActionTypes from './interactions.types'
 
 export const fetchInteractionsStart = () => ({
@@ -13,4 +14,9 @@ export const fetchInteractionsSuccess = interactions => ({
 export const fetchInteractionsFailure = errorMessage => ({
     type: InteractionsActionTypes.FETCH_INTERACTIONS_FAILURE,
     payload: errorMessage
+  });
+
+  export const addInteractionToState = interaction => ({
+    type: InteractionsActionTypes.ADD_INTERACTION,
+    payload: interaction
   });
