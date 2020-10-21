@@ -54,11 +54,11 @@ class AddJob extends Component {
                         <Form.Label>JobT Title:</Form.Label>
                         <Form.Control name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
                     </Form.Group>
-                    <Form.Group controlId="companyForm">
+                    <Form.Group controlId="lastContactForm">
                         <Form.Label>Last Contacted:</Form.Label>
                         <Form.Control type="date" name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
                     </Form.Group>
-                    <Form.Group controlId="companyForm">
+                    <Form.Group controlId="statusForm">
                         <Form.Label>Status:</Form.Label>
                         <Form.Control name="status" as="select" value={status} onChange={this.handleChange} >
                             <option disabled defaultValue></option>

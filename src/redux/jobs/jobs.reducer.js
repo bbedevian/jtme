@@ -38,6 +38,15 @@ const jobsReducer = (state = INITIAL_STATE,  action) => {
                 ...state,
                 selectedJob: {...action.payload}
             }
+        case JobActionTypes.UPDATE_JOB:
+            return {
+                ...state,
+                jobs: state.jobs.map(job => job.id === action.jobID ? 
+                    {...action.payload, lastContacted: action.timeStamp}
+                    :
+                    job),
+                selectedJob: {...action.payload, id: action.jobID, lastContacted: action.timeStamp}
+            }
         default: return state
     }
 }
