@@ -1,5 +1,9 @@
-.testing {
+.table-testing {
   background-color: white;
-  border: hidden;
+  border-bottom: solid white 1px !important;
+  border-right: solid white 1px !important;
+  border-top: solid white 1px !important;
+  width: 60px;
+  height: 55px;
 }
 /*# sourceMappingURL=JobRow.css.map */
