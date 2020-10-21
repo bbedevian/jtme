@@ -25,7 +25,6 @@ class AddJob extends Component {
         this.setState({[name]: value})
     }
 
-    // not liking the async but runs. document ID currently saying undefined
     handleSubmit = e => {
         e.preventDefault();
         addJobToUserJobsCollection(this.state)
@@ -51,7 +50,7 @@ class AddJob extends Component {
                         <Form.Control name='company' value={company} onChange={this.handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="jobTitleForm">
-                        <Form.Label>JobT Title:</Form.Label>
+                        <Form.Label>Job Title:</Form.Label>
                         <Form.Control name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="lastContactForm">

@@ -6,6 +6,7 @@ const JobActionTypes = {
     SELECT_JOB: 'SELECT_JOB',
     SHOW_MODAL: 'SHOW_MODAL',
     UPDATE_JOB: 'UPDATE_JOB',
+    REMOVE_SELECTED_JOB: 'REMOVE_SELECTED_JOB'
 }
 
 export default JobActionTypes;

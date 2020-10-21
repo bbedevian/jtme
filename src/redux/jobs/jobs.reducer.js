@@ -38,6 +38,11 @@ const jobsReducer = (state = INITIAL_STATE,  action) => {
                 ...state,
                 selectedJob: {...action.payload}
             }
+        case JobActionTypes.REMOVE_SELECTED_JOB:
+            return {
+                ...state,
+                selectedJob: null
+            }
         case JobActionTypes.UPDATE_JOB:
             return {
                 ...state,

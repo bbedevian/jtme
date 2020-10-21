@@ -25,10 +25,7 @@ function JobRow(props) {
 
 	const clickEditButton = () => {
 		props.selectJob(props.job);
-		console.log('testing button! :>> ');
 	}
-
-	console.log('props :>> ', props);
 
 	let tableRow;
 	if(props.selectedJob && props.job.id === props.selectedJob.id){

@@ -26,6 +26,10 @@ export const selectJob = job => ({
   payload: job
 });
 
+export const removeSelectedJob = () => ({
+  type: JobActionTypes.REMOVE_SELECTED_JOB
+});
+
 export const showModal = job => ({
   type: JobActionTypes.SHOW_MODAL,
   payload: job
