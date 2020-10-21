@@ -23,27 +23,62 @@ function JobRow(props) {
 		props.handleOpen();
 	};
 
-	return (
+	const clickEditButton = () => {
+		props.selectJob(props.job);
+		console.log('testing button! :>> ');
+	}
+
+	console.log('props :>> ', props);
+
+	let tableRow;
+	if(props.selectedJob && props.job.id === props.selectedJob.id){
+		tableRow = 
 		<>
 			<tr
 				className="jobRow"
 				onMouseEnter={() => setShowEditBtn(true)}
 				onMouseLeave={() => setShowEditBtn(false)}
-				onClick={() => showModalWithSelectedJob(props)}
-			>
-				<td>{company}</td>
-				<td>{jobTitle}</td>
-				<td>{month + "/" + day + "/" + year}</td>
-				<td>{status}</td>
-				<td className="table-testing">
+				// onClick={() => showModalWithSelectedJob(props)}
+			>	
+				<td onClick={() => showModalWithSelectedJob(props)}>EDIT</td>
+				<td onClick={() => showModalWithSelectedJob(props)}>EDIT</td>
+				<td onClick={() => showModalWithSelectedJob(props)}>EDIT</td>
+				<td onClick={() => showModalWithSelectedJob(props)}>EDIT</td>
+				<td className="table-testing" onClick={() => clickEditButton()}>
 					<EditButton show={showEditBtn} />
 				</td>
 			</tr>
 		</>
+	} else {
+		tableRow = 
+		<>
+			<tr
+				className="jobRow"
+				onMouseEnter={() => setShowEditBtn(true)}
+				onMouseLeave={() => setShowEditBtn(false)}
+				// onClick={() => showModalWithSelectedJob(props)}
+			>	
+				<td onClick={() => showModalWithSelectedJob(props)}>{company}</td>
+				<td onClick={() => showModalWithSelectedJob(props)}>{jobTitle}</td>
+				<td onClick={() => showModalWithSelectedJob(props)}>{month + "/" + day + "/" + year}</td>
+				<td onClick={() => showModalWithSelectedJob(props)}>{status}</td>
+				<td className="table-testing" onClick={() => clickEditButton()}>
+					<EditButton show={showEditBtn} />
+				</td>
+			</tr>
+		</>
+	}
+
+	return (
+		<>
+		{tableRow}
+		</>
 	);
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+	selectedJob: state.jobs.selectedJob
+});
 
 const mapDispatchToProps = (dispatch) => ({
 	selectJob: (job) => dispatch(selectJob(job)),

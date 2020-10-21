@@ -4,6 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchInteractionsStart } from "../../redux/interactions/interactions.actions";
 import {updateJob} from '../../firebase/firebase.utils'
+import {selectJob} from '../../redux/jobs/jobs.actions'
 //component imports
 import InteractionTable from "../InteractionTable/InteractionTable";
 import EditButton from "../EditButton/EditButton";
@@ -123,6 +124,8 @@ const msp = state => ({
 const mdp = (dispatch) => {
 	return {
 		fetchInteractionsStart: () => dispatch(fetchInteractionsStart()),
+		selectJob: () => dispatch(selectJob(null)),
+
 	};
 };
 
