@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/auth';
 import {store} from '../redux/store'
 import { addJobToState, updateJobInState } from '../redux/jobs/jobs.actions';
 import {addInteractionToState} from '../redux/interactions/interactions.actions'
@@ -15,19 +16,40 @@ var firebaseConfig = {
     appId: "1:291493867044:web:dce46199dea42f98e972b1",
     measurementId: "G-EBS3HKN53C"
   };
+
+  export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if(!userAuth) return;
+
+    const userRef = firestore.doc(`users/${userAuth.uid}`)
+
+    const snapShop = await userRef.get()
+
+    if(!snapShop.exists){
+      const { displayName, email} = userAuth
+      const createdAt = new Date ()
+      try {
+        await userRef.set({
+          displayName, email, createdAt, ...additionalData
+        })
+      } catch(err){
+          console.log('error!...', err.message)
+      }
+    }
+    return userRef;
+  }
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
   export const firestore = firebase.firestore();
-
-  const state = store.getState();
-  const currentUserID = state.user.currentUser.id;
+  export const auth = firebase.auth();
 
   export const addJobToUserJobsCollection = (job) => {
+    const state = store.getState();
+    const currentUserID = state.user.currentUser.id;
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
     const userJobs = userDoc.collection('jobs');
-
     userJobs.add(job)
     .then(function(docRef) {
       console.log("Job written with ID: ", docRef.id);
@@ -37,7 +59,10 @@ var firebaseConfig = {
         console.error("Error adding document: ", error);
     });
   }
+
   export const addInteractionToJob = (interaction) => {
+    const state = store.getState();
+    const currentUserID = state.user.currentUser.id;
     const currState = store.getState();
     const seletedJob = currState.jobs.selectedJob;
     const collectionRef = firestore.collection('users');
@@ -51,7 +76,6 @@ var firebaseConfig = {
       store.dispatch(addInteractionToState({...interaction, id: docRef.id}))
       userDoc.collection('jobs').doc(seletedJob.id).update({lastContacted: dateStamp})
       // last step is to update the jobs last touch on the frontend which can be done with an action from reducer
-      // userDoc.collection('jobs').doc(seletedJob.id).update({lastContacted: firebase.firestore.FieldValue.serverTimestamp()})
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -59,8 +83,9 @@ var firebaseConfig = {
   }
 
   export const updateJob = (job)  => {
-    const currState = store.getState();
-    const selectedJobID = currState.jobs.selectedJob.id;
+    const state = store.getState();
+    const currentUserID = state.user.currentUser.id;
+    const selectedJobID = state.jobs.selectedJob.id;
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
     const time = new Date()
@@ -85,20 +110,30 @@ var firebaseConfig = {
         jobTitle
       };
     });
-  
     return transformedJobs
   }
 
   export const convertInteractionsSnapshotToMap = interactions => {
     const transformedInteractions = interactions.docs.map(doc => {
-      const { activity, date } = doc.data();
-
+      const { type, date } = doc.data();
       return {
         id: doc.id,
-        activity,
+        type,
         date
       };
     });
-  
     return transformedInteractions
   }
+
+  export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = auth.onAuthStateChanged(userAuth => {
+        unsubscribe()
+        resolve(userAuth)
+      }, reject)
+    })
+  }
+
+  export const googleProvider = new firebase.auth.GoogleAuthProvider();
+  googleProvider.setCustomParameters({prompt: 'select_account'});
+  export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
