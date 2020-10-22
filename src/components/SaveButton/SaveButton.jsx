@@ -7,9 +7,9 @@ import './SaveButton.scss'
 import Button from "react-bootstrap/Button"
 import { Check2Circle } from 'react-bootstrap-icons'
 
-const SaveButton = () => {
+const SaveButton = (props) => {
    return (
-      <Button variant='save'><Check2Circle color="green"/></Button>
+      <Button onClick={props.onClick} variant='save'><Check2Circle color="green"/></Button>
    );
 };
 

@@ -10,6 +10,9 @@ import { removeSelectedJob } from '../../redux/jobs/jobs.actions'
 import SaveButton from '../SaveButton/SaveButton'
 import DiscardChangesButton from '../DiscardChangesButton/DiscardChangesButton'
 
+//firebase imports
+import {updateJob} from '../../firebase/firebase.utils'
+
 //bootstrap imports
 import Form from 'react-bootstrap/Form'
 
@@ -32,6 +35,14 @@ class EditRow extends React.Component{
       this.setState({[name]: value})
    }
 
+   handleEditSubmit = (e) => {
+		e.preventDefault();
+		const {company, jobTitle, lastContacted, status} = this.state
+		const job = {company, jobTitle, lastContacted, status} 
+		updateJob(job)
+		this.setState({editing:false})
+	}
+
    render(){
       const { company, jobTitle, lastContacted, status} = this.state
       return(
@@ -48,7 +59,7 @@ class EditRow extends React.Component{
                <option value="closed">Closed</option>
                </Form.Control></td>
 				<td className="table-testing">
-               <SaveButton/>
+               <SaveButton onClick={this.handleEditSubmit}/>
                <DiscardChangesButton onClick={this.props.discardChanges} />
 				</td>
 			</tr>
