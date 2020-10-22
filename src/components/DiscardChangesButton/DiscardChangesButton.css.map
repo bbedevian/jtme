@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,YAAY,CAAA;EACT,OAAO,EAAE,MAAM;CACjB",
+    "sources": [
+        "DiscardChangesButton.scss"
+    ],
+    "names": [],
+    "file": "DiscardChangesButton.css"
+}

@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,QAAQ,CAAA;EACL,aAAa,EAAE,IAAI;CACrB",
+    "mappings": "AAAA,AAAA,gBAAgB,CAAA;EACb,aAAa,EAAE,IAAI;CACrB",
     "sources": [
         "add-interaction.scss"
     ],

@@ -5,5 +5,7 @@
   border-top: solid white 1px !important;
   width: 60px;
   height: 55px;
+  z-index: 100;
+  white-space: nowrap;
 }
 /*# sourceMappingURL=JobRow.css.map */
