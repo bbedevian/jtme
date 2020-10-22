@@ -1,6 +1,10 @@
 import React from 'react'
-import SaveJobChangesButton from '../SaveJobChangesButton/SaveJobChangesButton'
 import './EditRow.scss'
+
+
+//redux imports
+import {connect} from 'react-redux'
+import { removeSelectedJob } from '../../redux/jobs/jobs.actions'
 
 //component imports
 import SaveButton from '../SaveButton/SaveButton'
@@ -23,20 +27,21 @@ class EditRow extends React.Component{
          company, jobTitle, lastContacted, status
       })
    }
+   handleChange = e => {
+      const {name, value} = e.target
+      this.setState({[name]: value})
+   }
 
    render(){
       const { company, jobTitle, lastContacted, status} = this.state
-      console.log('this.props', this.props)
       return(
          <tr
 				className="jobRow"
-				onMouseEnter={() => this.props.setShowEditBtn(true)}
-				onMouseLeave={() => this.props.setShowEditBtn(false)}
 			>	
-				<td><Form.Control type="text" value={company}></Form.Control></td>
-				<td><Form.Control type="text" value={jobTitle}></Form.Control></td>
-				<td><Form.Control type='date' value={lastContacted}></Form.Control></td>
-				<td><Form.Control as='select' value={status}>
+				<td><Form.Control onChange={this.handleChange} name='company' type="text" value={company}></Form.Control></td>
+				<td><Form.Control onChange={this.handleChange} name='jobTitle' type="text" value={jobTitle}></Form.Control></td>
+				<td><Form.Control onChange={this.handleChange} name='lastContacted' type='date' value={lastContacted}></Form.Control></td>
+				<td><Form.Control onChange={this.handleChange} name="status" as='select' value={status}>
                <option value="saved">Saved</option>
                <option value="applied">Applied</option>
                <option value="interviewing">Interviewing</option>
@@ -44,12 +49,21 @@ class EditRow extends React.Component{
                </Form.Control></td>
 				<td className="table-testing">
                <SaveButton/>
-               <DiscardChangesButton />
-               
+               <DiscardChangesButton onClick={this.props.discardChanges} />
 				</td>
 			</tr>
       )
    }
 }
+function mapDispatchToProps(dispatch) {
+   return {
+      discardChanges: () => dispatch(removeSelectedJob())
+   }
+}
+function mapStateToProps(state) {
+   return {
 
-export default EditRow;
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditRow);

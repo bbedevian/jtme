@@ -7,9 +7,9 @@ import './DiscardChangesButton.scss'
 import Button from 'react-bootstrap/Button'
 import { XSquareFill } from 'react-bootstrap-icons'
 
-const DiscardChangesButton = () => {
+const DiscardChangesButton = (props) => {
    return (
-      <Button variant='light'><XSquareFill color='red'/></Button>
+      <Button onClick={props.onClick} variant='light'><XSquareFill color='red'/></Button>
    );
 };
 
