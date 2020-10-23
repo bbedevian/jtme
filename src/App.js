@@ -27,7 +27,6 @@ class App extends Component {
           <Route exact path='/home' render={() => currentUser ? (<HomePage/>): (<Redirect to='/signin' />)}/>
           <Route path='/' render={() => currentUser ? (<Redirect to='/home' />) : (<Redirect to='/signin' />)}/>
         </Switch>
-        {currentUser ? <Button onClick={() => this.props.signOutStart()}>Sign Out</Button> : null}
       </div>
     );
   }
