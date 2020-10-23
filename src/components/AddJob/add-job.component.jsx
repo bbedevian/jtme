@@ -7,6 +7,8 @@ import { fetchJobsStart } from '../../redux/jobs/jobs.actions';
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { ArrowUpCircle, ArrowDownCircle } from 'react-bootstrap-icons'
+
 
 //css import
 import './add-job.scss'
@@ -17,7 +19,8 @@ class AddJob extends Component {
         company: '',
         status: '',
         jobTitle: '',
-        lastContacted: ''
+        lastContacted: '',
+        isOpen: true
     }
 
     handleChange = e => {
@@ -25,9 +28,15 @@ class AddJob extends Component {
         this.setState({[name]: value})
     }
 
+    handleDropDown = () => {
+        this.setState({isOpen: !this.state.isOpen})
+    }
+
     handleSubmit = e => {
         e.preventDefault();
-        addJobToUserJobsCollection(this.state)
+        const {company, status, jobTitle, lastContacted} = this.state
+        const newJob = {company, status, jobTitle, lastContacted}
+        addJobToUserJobsCollection(newJob)
         this.setState({
             company: '',
             status: '',
@@ -41,9 +50,14 @@ class AddJob extends Component {
     }
 
     render() {
-        const {company, status, jobTitle, lastContacted } = this.state
+        const {company, status, jobTitle, lastContacted, isOpen } = this.state
+        const {handleDropDown} = this
         return (
             <Container className='add-job'>
+                <div className='add-job-header' onClick={() =>  handleDropDown()}>
+                    Add a new Job {isOpen ? <ArrowUpCircle/> : <ArrowDownCircle/>}
+                </div>
+               { isOpen ? 
                 <Form id='add-job-form' onSubmit={this.handleSubmit}>
                     <Form.Group controlId="companyForm">
                         <Form.Label>Company:</Form.Label>
@@ -66,10 +80,12 @@ class AddJob extends Component {
                             <option value="interviewing">Interviewing</option>
                             <option value="closed">Closed</option>
                         </Form.Control>
-                        {/* <Form.Control name='status' value={status} onChange={this.handleChange}/> */}
                     </Form.Group>
                     <Button variant='success' type='submit'>Add Job</Button>
                 </Form>
+                :
+                null
+                }
             </Container>
         ); 
     }

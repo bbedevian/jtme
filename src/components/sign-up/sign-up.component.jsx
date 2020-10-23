@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import FormInput from '../form-input/form-input.component';
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { signUpStart } from '../../redux/user/user.actions';
 import {connect} from 'react-redux'
@@ -34,18 +34,31 @@ class SignUp extends Component {
 
     render() {
         const {displayName, email, password, confirmPassword} = this.state
+        const {handleChange} = this
         return (
             <div className='sign-up'>
             <h2 className='title'>I do not have an account</h2>
             <span>Sign up below</span>
 
-            <form className='sign-up-form' onSubmit={this.handleSubmit}>
-                <FormInput onChange={this.handleChange} type='text' name='displayName' value={displayName} label='name' required/>
-                <FormInput onChange={this.handleChange} type='email' name='email' value={email} label='email' required/>
-                <FormInput onChange={this.handleChange} type='password' name='password' value={password} label='password' required/>
-                <FormInput onChange={this.handleChange} type='password' name='confirmPassword' label='confirm password' value={confirmPassword} required/>
-                <Button type='submit' >Sign Up </Button>
-            </form>
+            <Form className='sign-up-form' onSubmit={this.handleSubmit}>
+                <Form.Group controlId="formBasicDisplayName">
+                        <Form.Label>Display Name</Form.Label>
+                        <Form.Control required name='displayName' type="text" value={displayName} onChange={handleChange}/>
+                </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control required name='email' type="text" value={email} onChange={handleChange}/>
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control required name='password' type="password" value={password} onChange={handleChange}/>
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control required name='confirmPassword' type="password" value={confirmPassword} onChange={handleChange}/>
+                </Form.Group>
+                <Button type='submit'>Sign Up</Button>
+            </Form>
                 
             </div>
         );
