@@ -56,6 +56,7 @@ const mapStateToProps = state => ({
    jobs: state.jobs.jobs,
    selectedJob: state.jobs.selectedJob
 })
+
 const mapDispatchToProps = dispatch => ({
    removeSelectedJob: () => dispatch(removeSelectedJob()),
 })

@@ -47,19 +47,19 @@ class AddJob extends Component {
                 <Form id='add-job-form' onSubmit={this.handleSubmit}>
                     <Form.Group controlId="companyForm">
                         <Form.Label>Company:</Form.Label>
-                        <Form.Control name='company' value={company} onChange={this.handleChange}/>
+                        <Form.Control required name='company' value={company} onChange={this.handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="jobTitleForm">
                         <Form.Label>Job Title:</Form.Label>
-                        <Form.Control name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
+                        <Form.Control required name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="lastContactForm">
                         <Form.Label>Last Contacted:</Form.Label>
-                        <Form.Control type="date" name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
+                        <Form.Control required type="date" name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="statusForm">
                         <Form.Label>Status:</Form.Label>
-                        <Form.Control name="status" as="select" value={status} onChange={this.handleChange} >
+                        <Form.Control required name="status" as="select" value={status} onChange={this.handleChange} >
                             <option disabled defaultValue></option>
                             <option value="saved">Saved</option>
                             <option value="applied">Applied</option>

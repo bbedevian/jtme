@@ -19,3 +19,12 @@ export const fetchInteractionsFailure = errorMessage => ({
     type: InteractionsActionTypes.ADD_INTERACTION,
     payload: interaction
   });
+
+  export const selectInteraction = interaction => ({
+    type: InteractionsActionTypes.SELECT_INTERACTION,
+    payload: interaction
+  })
+
+  export const removeSelectedInteraction = () => ({
+    type: InteractionsActionTypes.REMOVE_SELECTED_INTERACTION
+  });

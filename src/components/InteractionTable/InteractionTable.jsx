@@ -1,26 +1,47 @@
+//react imports
 import React from 'react'
+
+//component imports
+import InteractionRow from '../InteractionRow/InteractionRow'
+
+//redux imports
+import { connect } from 'react-redux'
 
 //bootstrap imports
 import Table from "react-bootstrap/Table"
 
-function InteractionTable(){
+function InteractionTable(props){
    return(
-      <Table>
-         <thead>
-            <tr>
-               <th>Date</th>
-               <th>Type</th>
-               <th>Next Steps</th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr>
-               <td>10/09/2020</td>
-               <td>Phone Call</td>
-               <td>Send Thank You Email</td>
-            </tr>
-         </tbody>
-      </Table>
+         <Table>
+            <thead>
+               <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+               </tr>
+            </thead>
+            <tbody>
+            {props.interactions? props.interactions.map((interaction) => {
+                                 return (
+                                    <>
+                                       <InteractionRow
+                                       interaction={interaction}
+                                       />
+                                    </>
+                                 )
+                           }) : null}
+            </tbody>
+         </Table>
    )
 }
-export default InteractionTable;
+
+function mapStateToProps(state) {
+   return {
+      interactions: state.interactions.interactions
+   }
+}
+function mapDispatchToProps(dispatch) {
+   return {
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InteractionTable);

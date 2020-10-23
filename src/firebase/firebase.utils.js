@@ -61,6 +61,7 @@ var firebaseConfig = {
   }
 
   export const addInteractionToJob = (interaction) => {
+    console.log("interaction", interaction)
     const state = store.getState();
     const currentUserID = state.user.currentUser.id;
     const currState = store.getState();

@@ -98,6 +98,7 @@ class JobDetailModal extends React.Component {
 						<InteractionTable />
 					</Modal.Body>
 					<Modal.Footer>
+						<Button>Add Interaction</Button>
 					</Modal.Footer>
 				</>
 			);

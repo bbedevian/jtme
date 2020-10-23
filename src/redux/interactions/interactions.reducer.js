@@ -3,7 +3,8 @@ import InteractionsActionTypes from './interactions.types'
 const INITIAL_STATE = {
 interactions: null,
 isFetching: false,
-errorMessage: ''
+errorMessage: '',
+selectedInteraction: null,
 }
 
 
@@ -30,6 +31,16 @@ const interactionsReducer = (state = INITIAL_STATE,  action) => {
             return {
                 ...state,
                 interactions: [...state.interactions, action.payload]
+            }
+        case InteractionsActionTypes.SELECT_INTERACTION:
+            return {
+                ...state,
+                selectedInteraction: action.payload
+            }
+        case InteractionsActionTypes.REMOVE_SELECTED_INTERACTION:
+            return {
+                ...state,
+                selectedInteraction: null
             }
         default: return state
     }
