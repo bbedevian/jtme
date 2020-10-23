@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import './sign-in.styles.scss'
 import {connect} from 'react-redux'
 import {googleSignInStart, emailSignInStart} from '../../redux/user/user.actions'
+import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import FormInput from '../form-input/form-input.component';
 
 
 class SignIn extends Component {
     state = {
         email: '',
-
         password: ''
     }
 
@@ -34,14 +33,20 @@ class SignIn extends Component {
                 <h2>I Already Have an Account</h2>
                 <span>Sign in withyour email and password</span>
 
-                <form onSubmit={handleSubmit}>
-                    <FormInput handleChange={handleChange} name='email' type='email' value={email} label='email' required/>
-                    <FormInput handleChange={handleChange} name='password' type='password' label='password' value={password} required/>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control required name='email' type="text" value={email} onChange={handleChange}/>
+                    </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control required name='password' type="password" value={password} onChange={handleChange}/>
+                    </Form.Group>
                     <div className='buttons'>
-                    <Button onClick={(e) => handleSubmit(e)}  >Sign In</Button>
+                    <Button onClick={(e) => handleSubmit(e)}>Sign In</Button>
                     <Button type='button' onClick={googleSignInStart} >Sign In With Google</Button>
                     </div>
-                </form>
+                </Form>
             </div>
         );
     }
