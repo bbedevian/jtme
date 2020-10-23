@@ -2,17 +2,20 @@ import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import './JobsTable.scss'
 // redux imports
-import {removeSelectedJob} from '../../redux/jobs/jobs.actions'
+import { removeSelectedJob } from '../../redux/jobs/jobs.actions'
+import { removeSelectedInteraction } from '../../redux/interactions/interactions.actions'
 // Bootstrap Imports
 import Table from 'react-bootstrap/Table'
 import Container from "react-bootstrap/Container"
 import JobRow from '../JobRow/JobRow'
 import JobDetailModal from '../JobDetailModal/JobDetailModal'
 
+
 function JobsTable(props){
    const [modalShow, setModalShow] = useState(false)
    const handleClose = () => {
       props.removeSelectedJob()
+      props.removeSelectedInteraction()
       setModalShow(false)
    }
    const handleOpen = () => setModalShow(true)
@@ -59,6 +62,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
    removeSelectedJob: () => dispatch(removeSelectedJob()),
+   removeSelectedInteraction: () => dispatch(removeSelectedInteraction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobsTable)
