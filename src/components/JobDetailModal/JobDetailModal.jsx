@@ -54,8 +54,8 @@ class JobDetailModal extends React.Component {
 		this.setState({editing:false})
 	}
 
-	showAddInteraction = () => {
-		this.setState({AddInteraction: true})
+	changeShowAddInteraction = () => {
+		this.setState({AddInteraction: !this.state.AddInteraction})
 	}
 
 	render(){
@@ -101,10 +101,10 @@ class JobDetailModal extends React.Component {
 						</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<InteractionTable show={this.state.AddInteraction} />
+						<InteractionTable changeShowAddInteraction={this.changeShowAddInteraction} show={this.state.AddInteraction} />
 					</Modal.Body>
 					<Modal.Footer>
-					{this.state.AddInteraction ? null : <Button onClick={this.showAddInteraction}>Add Interaction</Button>}
+					{this.state.AddInteraction ? null : <Button onClick={this.changeShowAddInteraction}>Add Interaction</Button>}
 					</Modal.Footer>
 				</>
 			);

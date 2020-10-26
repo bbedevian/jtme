@@ -65,18 +65,27 @@ var firebaseConfig = {
     const state = store.getState();
     const currentUserID = state.user.currentUser.id;
     const currState = store.getState();
-    const seletedJob = currState.jobs.selectedJob;
+    const selectedJob = currState.jobs.selectedJob;
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
-    const interactions = userDoc.collection('jobs').doc(seletedJob.id).collection('interactions')
-    const time = new Date()
-    const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
-    interactions.add({...interaction, date: dateStamp})
+    const interactions = userDoc.collection('jobs').doc(selectedJob.id).collection('interactions')
+    // const time = new Date()
+    // const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
+    interactions.add({...interaction})
     .then(function(docRef) {
       console.log("Interaction written with ID: ", docRef.id);
+      const currLastContacted = new Date(selectedJob.lastContacted)
+      const interactionDate = new Date(interaction.date)
+      const finalDate = currLastContacted > interactionDate? selectedJob.lastContacted : interaction.date
       store.dispatch(addInteractionToState({...interaction, id: docRef.id}))
-      userDoc.collection('jobs').doc(seletedJob.id).update({lastContacted: dateStamp})
+      userDoc.collection('jobs').doc(selectedJob.id).update({lastContacted: finalDate})
       // last step is to update the jobs last touch on the frontend which can be done with an action from reducer
+      .then(() => {
+        store.dispatch(updateJobInState(selectedJob, selectedJob.id, finalDate))
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -135,11 +144,12 @@ var firebaseConfig = {
 
   export const convertInteractionsSnapshotToMap = interactions => {
     const transformedInteractions = interactions.docs.map(doc => {
-      const { type, date } = doc.data();
+      const { type, date, nextSteps } = doc.data();
       return {
         id: doc.id,
         type,
-        date
+        date,
+        nextSteps
       };
     });
     return transformedInteractions

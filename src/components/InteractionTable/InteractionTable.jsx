@@ -18,10 +18,11 @@ function InteractionTable(props){
                <tr>
                   <th>Date</th>
                   <th>Type</th>
+                  <th>Next Steps</th>
                </tr>
             </thead>
             <tbody>
-               {props.show? <AddInteractionRow/> : null }
+               {props.show? <AddInteractionRow changeShowAddInteraction={props.changeShowAddInteraction}/> : null }
                
             {props.interactions? props.interactions.map((interaction) => {
                                  return (

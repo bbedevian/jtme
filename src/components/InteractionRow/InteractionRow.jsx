@@ -10,7 +10,8 @@ import { selectInteraction } from "../../redux/interactions/interactions.actions
 import './InteractionRow.scss'
 
 const InteractionRow = (props) => {
-   const { date, type}  = props.interaction
+   console.log("InteractionRow Props", props)
+   const { date, type, nextSteps }  = props.interaction
    const [ showEditBtn, setShowEditBtn ] = useState(false)
 
    let tableRow;
@@ -21,6 +22,7 @@ const InteractionRow = (props) => {
          <tr onMouseEnter={()=> setShowEditBtn(true)} onMouseLeave={()=> setShowEditBtn(false)}>
          <td>{date}</td>
          <td>{type}</td>
+         <td>{nextSteps}</td>
          <td className="interactionRowBtn">
             <EditButton clicked={()=>props.selectInteraction(props.interaction)} show={showEditBtn} />
          </td>
@@ -33,9 +35,9 @@ const InteractionRow = (props) => {
       </>
    );
 };
-function mapStateToProps(state) {
+function mapStateToProps({interactions}) {
    return {
-      selectedInteraction: state.interactions.selectedInteraction
+      selectedInteraction: interactions.selectedInteraction
    }
 }
 
