@@ -15,7 +15,7 @@ export function* fetchInteractionsAsync(action) {
         const userJobs = userDoc.collection('jobs');
         const job = userJobs.doc(selectedJobID)
         const interactions = job.collection('interactions')
-        const snapShot = yield interactions.get()
+        const snapShot = yield interactions.orderBy('date', 'desc').get()
         const interactionsMap = yield call(convertInteractionsSnapshotToMap, snapShot)
         yield put(fetchInteractionsSuccess(interactionsMap))
     } catch(err){

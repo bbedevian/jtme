@@ -1,5 +1,5 @@
 //react imports
-import React, { useState } from 'react'
+import React, {useEffect} from 'react'
 
 //component imports
 import InteractionRow from '../InteractionRow/InteractionRow'

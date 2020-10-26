@@ -35,7 +35,11 @@ const interactionsReducer = (state = INITIAL_STATE,  action) => {
         case InteractionsActionTypes.ADD_INTERACTION:
             return {
                 ...state,
-                interactions: [...state.interactions, action.payload]
+                interactions: [...state.interactions, action.payload].sort((a,b) => {
+                    let dateA = new Date(a.date)
+                    let dateB = new Date(b.date)
+                    return dateB-dateA
+                })
             }
         case InteractionsActionTypes.SELECT_INTERACTION:
             return {
@@ -51,12 +55,13 @@ const interactionsReducer = (state = INITIAL_STATE,  action) => {
             return {
                 ...state,
                 interactions: state.interactions.map(interaction => interaction.id === action.interactionID ? 
-                    {
-                        ...action.payload,
-                    id: action.interactionID
-                    }
+                    {...action.payload, id: action.interactionID}
                     :
-                    interaction),
+                    interaction).sort((a,b) => {
+                        let dateA = new Date(a.date)
+                        let dateB = new Date(b.date)
+                        return dateB-dateA
+                    }),
                 selectedInteraction: null
             }
         default: return state
