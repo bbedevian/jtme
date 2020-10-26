@@ -1,4 +1,11 @@
 .add-job {
   margin-bottom: 50px;
 }
+
+.add-job-header {
+  width: 100%;
+  background-color: greenyellow;
+  padding: 8px;
+  margin-bottom: 5px;
+}
 /*# sourceMappingURL=add-job.css.map */

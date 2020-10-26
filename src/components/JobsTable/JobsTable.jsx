@@ -22,7 +22,7 @@ function JobsTable(props){
 
    return(
       <>
-         <Container>
+         <Container >
                   <Table id="jobs-table" striped bordered hover>
                      <thead id="job-table-header">
                         <tr>
@@ -32,21 +32,21 @@ function JobsTable(props){
                            <th>Status</th>
                         </tr>
                      </thead>
-                     <tbody>
-                        {props.jobs ? props.jobs.map((job) => {
-                              return (
-                                 <>
-                                    <JobRow 
-                                    key={job.id} 
-                                    handleOpen={handleOpen}
-                                    handleClose={handleClose} 
-                                    job={job}
-                                    />
-                                    
-                                 </>
-                              )
-                        }) : null}
-                     </tbody>
+                        <tbody id="job-table-body">
+                           {props.jobs ? props.jobs.map((job) => {
+                                 return (
+                                    <>
+                                       <JobRow 
+                                       key={job.id} 
+                                       handleOpen={handleOpen}
+                                       handleClose={handleClose} 
+                                       job={job}
+                                       />
+                                       
+                                    </>
+                                 )
+                           }) : null}
+                        </tbody>
                   </Table>
                   {props.selectedJob && modalShow ? <JobDetailModal onHide={handleClose}  show={modalShow} job={props.selectedJob}/>
                   : null}

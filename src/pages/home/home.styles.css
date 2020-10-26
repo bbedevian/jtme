@@ -1,0 +1,38 @@
+.home-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.job-stuffs {
+  width: 100%;
+  margin-left: 200px;
+}
+
+.side-bar {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 25;
+  left: 0;
+  overflow-x: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.sign-out {
+  position: absolute;
+  bottom: 125px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*# sourceMappingURL=home.styles.css.map */

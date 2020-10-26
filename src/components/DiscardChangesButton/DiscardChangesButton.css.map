@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,YAAY,CAAA;EACT,OAAO,EAAE,MAAM;CACjB",
+    "mappings": "",
     "sources": [
         "DiscardChangesButton.scss"
     ],
