@@ -1,7 +1,6 @@
 import React from 'react';
 import JobsTable from '../..//components/JobsTable/JobsTable'
 import AddJob from '../../components/AddJob/add-job.component';
-import AddInteraction from '../../components/AddInteraction/add-interaction.component'
 import {connect} from 'react-redux'
 import { signOutStart } from '../../redux/user/user.actions';
 import Button from 'react-bootstrap/Button'
@@ -14,11 +13,10 @@ const HomePage = (props) => {
         <div className='home-page'>
             <div className='side-bar'>
                 <AddJob/>
-                <Button onClick={() => this.props.signOutStart()} className='sign-out'>Sign Out</Button>
+                <Button onClick={() => props.signOutStart()} className='sign-out'>Sign Out</Button>
             </div>
             <div className='job-stuffs'>
                 <JobsTable></JobsTable>
-                {props.selectedJob ? <AddInteraction /> : null}
             </div>
         </div>
     );

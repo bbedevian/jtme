@@ -3,7 +3,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import {store} from '../redux/store'
 import { addJobToState, updateJobInState } from '../redux/jobs/jobs.actions';
-import {addInteractionToState} from '../redux/interactions/interactions.actions'
+import {addInteractionToState, updateInteractionInState} from '../redux/interactions/interactions.actions'
 
 
 var firebaseConfig = {
@@ -97,6 +97,25 @@ var firebaseConfig = {
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
+    });
+  }
+  export const updateInteraction = (interaction)  => {
+    const state = store.getState();
+    const currentUserID = state.user.currentUser.id;
+    const selectedJobID = state.jobs.selectedJob.id;
+    const selectedInteractionID = state.interactions.selectedInteraction.id
+    const collectionRef = firestore.collection('users');
+    const userDoc = collectionRef.doc(currentUserID);
+    const jobsRef = userDoc.collection('jobs')
+    const jobDoc = jobsRef.doc(selectedJobID)
+    const interactionsRef = jobDoc.collection('interactions')
+    const interactionDoc = interactionsRef.doc(selectedInteractionID)
+    interactionDoc.update({...interaction})
+    .then(() => {
+      store.dispatch(updateInteractionInState(interaction, selectedInteractionID))
+    })
+    .catch(function(error) {
+        console.error("Error updating document: ", error);
     });
   }
 

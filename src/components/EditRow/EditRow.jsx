@@ -35,8 +35,7 @@ class EditRow extends React.Component{
       this.setState({[name]: value})
    }
 
-   handleEditSubmit = (e) => {
-		e.preventDefault();
+   handleEditSubmit = () => {
 		const {company, jobTitle, lastContacted, status} = this.state
 		const job = {company, jobTitle, lastContacted, status} 
 		updateJob(job)

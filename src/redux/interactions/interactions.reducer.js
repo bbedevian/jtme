@@ -42,6 +42,15 @@ const interactionsReducer = (state = INITIAL_STATE,  action) => {
                 ...state,
                 selectedInteraction: null
             }
+        case InteractionsActionTypes.UPDATE_INTERACTION:
+            return {
+                ...state,
+                interactions: state.interactions.map(interaction => interaction.id === action.interactionID ? 
+                    action.payload
+                    :
+                    interaction),
+                selectedInteraction: null
+            }
         default: return state
     }
 }

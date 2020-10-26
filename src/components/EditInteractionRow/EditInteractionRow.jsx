@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 //redux imports
 import { connect } from 'react-redux'
 import { removeSelectedInteraction } from '../../redux/interactions/interactions.actions';
+import {updateInteraction} from '../../firebase/firebase.utils'
 
 //component imports
 import SaveButton from '../SaveButton/SaveButton'
@@ -30,29 +31,35 @@ class EditInteractionRow extends React.Component {
       this.setState({[name]: value})
    }
 
+   handleEditSubmit = () => {
+		const {date, type} = this.state
+		const job = {date, type} 
+      updateInteraction(job)
+	}
+
    render(){
       const { date, type } = this.state
       return (
          <tr>
-            <td><Form.Control value={date} onChange={this.handleChange}></Form.Control></td>
-            <td><Form.Control value={type} onChange={this.handleChange}></Form.Control></td>
+            <td><Form.Control value={date} name="date" onChange={this.handleChange}></Form.Control></td>
+            <td><Form.Control value={type} name="type" onChange={this.handleChange}></Form.Control></td>
             <td>
                {/* need an update interactions firebase util here */}
-               <SaveButton/>
+               <SaveButton onClick={this.handleEditSubmit}/>
                <DiscardChangesButton onClick={this.props.discardChanges}/>
             </td>
          </tr>
       );
    }
 };
-function mapStateToProps(state) {
+function mapStateToProps({interactions}) {
    return {
-      interaction: state.interactions.selectedInteraction
+      interaction: interactions.selectedInteraction
    }
 }
 function mapDispatchToProps(dispatch) {
    return {
-      discardChanges: () => dispatch(removeSelectedInteraction())
+      discardChanges: () => dispatch(removeSelectedInteraction()),
    }
 }
 

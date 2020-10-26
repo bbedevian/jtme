@@ -8,6 +8,7 @@ import {selectJob} from '../../redux/jobs/jobs.actions'
 //component imports
 import InteractionTable from "../InteractionTable/InteractionTable";
 import EditButton from "../EditButton/EditButton";
+import AddInteraction from '../../components/AddInteraction/add-interaction.component'
 //bootstrap imports
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -22,7 +23,8 @@ class JobDetailModal extends React.Component {
 		company: '',
 		jobTitle: '',
 		status: '',
-		lastContacted: ''
+		lastContacted: '',
+		AddInteraction: false
 	}
 	componentDidMount(){
 		const {company, jobTitle, lastContacted, status} = this.props.selectedJob
@@ -50,6 +52,10 @@ class JobDetailModal extends React.Component {
 		const job = {company, jobTitle, lastContacted, status} 
 		updateJob(job)
 		this.setState({editing:false})
+	}
+
+	showAddInteraction = () => {
+		this.setState({AddInteraction: true})
 	}
 
 	render(){
@@ -98,7 +104,7 @@ class JobDetailModal extends React.Component {
 						<InteractionTable />
 					</Modal.Body>
 					<Modal.Footer>
-						<Button>Add Interaction</Button>
+					{this.state.AddInteraction ? <AddInteraction /> : <Button onClick={this.showAddInteraction}>Add Interaction</Button>}
 					</Modal.Footer>
 				</>
 			);

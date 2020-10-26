@@ -28,3 +28,9 @@ export const fetchInteractionsFailure = errorMessage => ({
   export const removeSelectedInteraction = () => ({
     type: InteractionsActionTypes.REMOVE_SELECTED_INTERACTION
   });
+
+  export const updateInteractionInState = (interaction, interactionID) => ({
+    type: InteractionsActionTypes.UPDATE_INTERACTION,
+    payload: interaction,
+    interactionID
+  })
