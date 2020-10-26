@@ -1,8 +1,9 @@
 //react imports
-import React from 'react'
+import React, { useState } from 'react'
 
 //component imports
 import InteractionRow from '../InteractionRow/InteractionRow'
+import AddInteractionRow from '../AddInteractionRow/AddInteractionRow'
 
 //redux imports
 import { connect } from 'react-redux'
@@ -20,6 +21,8 @@ function InteractionTable(props){
                </tr>
             </thead>
             <tbody>
+               {props.show? <AddInteractionRow/> : null }
+               
             {props.interactions? props.interactions.map((interaction) => {
                                  return (
                                     <>

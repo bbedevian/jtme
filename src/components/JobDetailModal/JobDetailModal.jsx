@@ -101,10 +101,10 @@ class JobDetailModal extends React.Component {
 						</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<InteractionTable />
+						<InteractionTable show={this.state.AddInteraction} />
 					</Modal.Body>
 					<Modal.Footer>
-					{this.state.AddInteraction ? <AddInteraction /> : <Button onClick={this.showAddInteraction}>Add Interaction</Button>}
+					{this.state.AddInteraction ? null : <Button onClick={this.showAddInteraction}>Add Interaction</Button>}
 					</Modal.Footer>
 				</>
 			);
