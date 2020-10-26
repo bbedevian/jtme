@@ -35,9 +35,10 @@ export const showModal = job => ({
   payload: job
 })
 
-export const updateJobInState = (job, jobID, timeStamp) => ({
+export const updateJobInState = (job, jobID, timeStamp, modal) => ({
   type: JobActionTypes.UPDATE_JOB,
   payload: job, 
   jobID,
-  timeStamp
+  timeStamp,
+  modal
 })

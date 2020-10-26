@@ -51,10 +51,11 @@ class JobDetailModal extends React.Component {
     }
 
 	handleEditSubmit = (e) => {
+		let modal = true
 		e.preventDefault();
 		const {company, jobTitle, lastContacted, status} = this.state
 		const job = {company, jobTitle, lastContacted, status} 
-		updateJob(job)
+		updateJob(job, modal)
 		this.setState({editing:false})
 	}
 
@@ -79,7 +80,7 @@ class JobDetailModal extends React.Component {
 						<Form.Label>Job Title:</Form.Label>
 						<Form.Control name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
 						<Form.Label>Last Updated:</Form.Label>
-						<Form.Control name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
+						<Form.Control type='date' name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
 						<Form.Label>Status:</Form.Label> 
 						<Form.Control name="status" as="select" value={status} onChange={this.handleChange} >
 							{/* need a way to get the already selected choice and input it */}

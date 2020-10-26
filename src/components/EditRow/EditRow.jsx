@@ -36,11 +36,11 @@ class EditRow extends React.Component{
    }
 
    handleEditSubmit = () => {
+      let modal = false
 		const {company, jobTitle, lastContacted, status} = this.state
-		const job = {company, jobTitle, lastContacted, status} 
-		updateJob(job)
-		this.setState({editing:false})
-	}
+      const job = {company, jobTitle, lastContacted, status} 
+      updateJob(job, modal)
+   }
 
    render(){
       const { company, jobTitle, lastContacted, status} = this.state
@@ -59,7 +59,7 @@ class EditRow extends React.Component{
                </Form.Control></td>
 				<td className="table-testing">
                <SaveButton onClick={this.handleEditSubmit}/>
-               <DiscardChangesButton onClick={this.props.discardChanges} />
+               <DiscardChangesButton onClick={this.props.removeSelectedJob} />
 				</td>
 			</tr>
       )
@@ -67,7 +67,8 @@ class EditRow extends React.Component{
 }
 function mapDispatchToProps(dispatch) {
    return {
-      discardChanges: () => dispatch(removeSelectedJob())
+      removeSelectedJob: () => dispatch(removeSelectedJob()),
+
    }
 }
 function mapStateToProps(state) {

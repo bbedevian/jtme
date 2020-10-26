@@ -92,17 +92,17 @@ var firebaseConfig = {
     });
   }
 
-  export const updateJob = (job)  => {
+  export const updateJob = (job, modal)  => {
     const state = store.getState();
     const currentUserID = state.user.currentUser.id;
     const selectedJobID = state.jobs.selectedJob.id;
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
-    const time = new Date()
-    const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
-    userDoc.collection('jobs').doc(selectedJobID).update({...job, lastContacted: dateStamp})
+    // const time = new Date()
+    // const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
+    userDoc.collection('jobs').doc(selectedJobID).update({...job})
     .then(() => {
-      store.dispatch(updateJobInState(job, selectedJobID, dateStamp))
+      store.dispatch(updateJobInState(job, selectedJobID, job.lastContacted, modal))
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);

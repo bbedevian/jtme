@@ -44,13 +44,14 @@ const jobsReducer = (state = INITIAL_STATE,  action) => {
                 selectedJob: null
             }
         case JobActionTypes.UPDATE_JOB:
+            let selectedJob = action.modal? {...action.payload, id: action.jobID, lastContacted: action.timeStamp}: null
             return {
                 ...state,
                 jobs: state.jobs.map(job => job.id === action.jobID ? 
-                    {...action.payload, lastContacted: action.timeStamp}
+                    {...action.payload, id: action.job, lastContacted: action.timeStamp}
                     :
                     job),
-                selectedJob: {...action.payload, id: action.jobID, lastContacted: action.timeStamp}
+                selectedJob: selectedJob
             }
         default: return state
     }
