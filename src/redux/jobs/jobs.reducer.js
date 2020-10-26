@@ -48,7 +48,7 @@ const jobsReducer = (state = INITIAL_STATE,  action) => {
             return {
                 ...state,
                 jobs: state.jobs.map(job => job.id === action.jobID ? 
-                    {...action.payload, id: action.job, lastContacted: action.timeStamp}
+                    {...action.payload, id: action.jobID, lastContacted: action.timeStamp}
                     :
                     job),
                 selectedJob: selectedJob

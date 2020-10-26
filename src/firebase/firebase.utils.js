@@ -81,7 +81,8 @@ var firebaseConfig = {
       userDoc.collection('jobs').doc(selectedJob.id).update({lastContacted: finalDate})
       // last step is to update the jobs last touch on the frontend which can be done with an action from reducer
       .then(() => {
-        store.dispatch(updateJobInState(selectedJob, selectedJob.id, finalDate))
+        let modal = true
+        store.dispatch(updateJobInState(selectedJob, selectedJob.id, finalDate, modal))
       })
       .catch(function(error) {
           console.error("Error adding document: ", error);
@@ -98,8 +99,6 @@ var firebaseConfig = {
     const selectedJobID = state.jobs.selectedJob.id;
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
-    // const time = new Date()
-    // const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
     userDoc.collection('jobs').doc(selectedJobID).update({...job})
     .then(() => {
       store.dispatch(updateJobInState(job, selectedJobID, job.lastContacted, modal))
@@ -111,17 +110,22 @@ var firebaseConfig = {
   export const updateInteraction = (interaction)  => {
     const state = store.getState();
     const currentUserID = state.user.currentUser.id;
-    const selectedJobID = state.jobs.selectedJob.id;
+    const selectedJob = state.jobs.selectedJob;
     const selectedInteractionID = state.interactions.selectedInteraction.id
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
     const jobsRef = userDoc.collection('jobs')
-    const jobDoc = jobsRef.doc(selectedJobID)
+    const jobDoc = jobsRef.doc(selectedJob.id)
     const interactionsRef = jobDoc.collection('interactions')
     const interactionDoc = interactionsRef.doc(selectedInteractionID)
     interactionDoc.update({...interaction})
     .then(() => {
       store.dispatch(updateInteractionInState(interaction, selectedInteractionID))
+      const currLastContacted = new Date(selectedJob.lastContacted)
+      const interactionDate = new Date(interaction.date)
+      const finalDate = currLastContacted > interactionDate? selectedJob.lastContacted : interaction.date
+      const job = {...selectedJob, lastContacted: finalDate}
+      updateJob(job, true)
     })
     .catch(function(error) {
         console.error("Error updating document: ", error);

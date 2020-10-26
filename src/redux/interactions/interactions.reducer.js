@@ -51,7 +51,10 @@ const interactionsReducer = (state = INITIAL_STATE,  action) => {
             return {
                 ...state,
                 interactions: state.interactions.map(interaction => interaction.id === action.interactionID ? 
-                    action.payload
+                    {
+                        ...action.payload,
+                    id: action.interactionID
+                    }
                     :
                     interaction),
                 selectedInteraction: null
