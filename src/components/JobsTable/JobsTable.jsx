@@ -22,7 +22,7 @@ function JobsTable(props){
 
    return(
       <>
-         <Container >
+         <Container>
                   <Table id="jobs-table" striped bordered hover>
                      <thead id="job-table-header">
                         <tr>
