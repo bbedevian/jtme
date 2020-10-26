@@ -15,6 +15,10 @@ export const fetchInteractionsFailure = errorMessage => ({
     payload: errorMessage
   });
 
+  export const resetInteractions = () => ({
+    type: InteractionsActionTypes.RESET_INTERACTIONS
+  })
+
   export const addInteractionToState = interaction => ({
     type: InteractionsActionTypes.ADD_INTERACTION,
     payload: interaction

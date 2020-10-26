@@ -27,6 +27,11 @@ const interactionsReducer = (state = INITIAL_STATE,  action) => {
                 isFetching: false,
                 errorMessage: action.payload
             };
+        case InteractionsActionTypes.RESET_INTERACTIONS:
+        return {
+            ...state,
+            interactions: null
+        }
         case InteractionsActionTypes.ADD_INTERACTION:
             return {
                 ...state,

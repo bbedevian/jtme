@@ -2,7 +2,7 @@
 import React from "react";
 // Redux  imports
 import { connect } from "react-redux";
-import { fetchInteractionsStart } from "../../redux/interactions/interactions.actions";
+import { fetchInteractionsStart, resetInteractions } from "../../redux/interactions/interactions.actions";
 import {updateJob} from '../../firebase/firebase.utils'
 import {selectJob} from '../../redux/jobs/jobs.actions'
 //component imports
@@ -32,14 +32,18 @@ class JobDetailModal extends React.Component {
 		this.props.fetchInteractionsStart()
 	}
 
-	componentDidUpdate(prevProps){
-		const {selectedJob} = this.props
-		const {company, jobTitle, lastContacted, status, id} = selectedJob
-		if(id !== prevProps.selectedJob.id){
-			this.setState({ company, jobTitle, lastContacted, status})
-			this.props.fetchInteractionsStart()
-		}
+	componentWillUnmount(){
+		this.props.resetInteractions()
 	}
+
+	// componentDidUpdate(prevProps){
+	// 	const {selectedJob} = this.props
+	// 	const {company, jobTitle, lastContacted, status, id} = selectedJob
+	// 	if(id !== prevProps.selectedJob.id){
+	// 		this.setState({ company, jobTitle, lastContacted, status})
+	// 		this.props.fetchInteractionsStart()
+	// 	}
+	// }
 
 	handleChange = e => {
         const {name, value} = e.target
@@ -132,6 +136,7 @@ const mdp = (dispatch) => {
 	return {
 		fetchInteractionsStart: () => dispatch(fetchInteractionsStart()),
 		selectJob: () => dispatch(selectJob(null)),
+		resetInteractions: () => dispatch(resetInteractions())
 
 	};
 };
