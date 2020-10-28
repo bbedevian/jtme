@@ -2,7 +2,8 @@
 var config = {
     apiKey: "AIzaSyDMaarRN0olc8PyrRur92EaZ5P7hmgzFS8",
     databaseURL: "https://jtme-8027c.firebaseio.com",
-    storageBucket:"jtme-8027c.appspot.com"
+    storageBucket:"jtme-8027c.appspot.com",
+    projectId: "jtme-8027c",
   };
   firebase.initializeApp(config);
   
@@ -27,23 +28,24 @@ var config = {
       if (user) {
         // User is signed in.
         var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
         var uid = user.uid;
-        var providerData = user.providerData;
         // [START_EXCLUDE]
         document.getElementById('quickstart-button').textContent = 'Sign out';
         document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-        document.getElementById('quickstart-account-details').textContent = JSON.stringify(displayName + uid, null, '  ');
+        document.getElementById('quickstart-account-Name').textContent = JSON.stringify(displayName, null, '  ');
+        document.getElementById('quickstart-account-ID').textContent = JSON.stringify(uid, null, '  ');
+        document.getElementById("new-job-form").hidden = false
+        document.getElementById('submit-job-button').addEventListener('click', addJob)
         // [END_EXCLUDE]
       } else {
         // Let's try to get a Google auth token programmatically.
         // [START_EXCLUDE]
         document.getElementById('quickstart-button').textContent = 'Sign-in with Google';
         document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-        document.getElementById('quickstart-account-details').textContent = 'null';
+        document.getElementById('quickstart-account-Name').textContent = "null"
+        document.getElementById('quickstart-account-ID').textContent = "null"
+        document.getElementById("new-job-form").hidden = true
+
         // [END_EXCLUDE]
       }
       document.getElementById('quickstart-button').disabled = false;
@@ -91,6 +93,26 @@ var config = {
     } else {
       startAuth(true);
     }
+  }
+
+  function addJob(){
+        console.log("in add job")
+        const firestore = firebase.firestore();
+        const userID = document.getElementById('quickstart-account-ID').textContent
+        const company = document.getElementById("company-name-field").value
+        const jobTitle = document.getElementById("job-title-field").value
+        const status = document.getElementById("job-status-field").value
+        let date = new Date()
+        const lastContacted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+        const newJob = {company, jobTitle, status, lastContacted }
+        console.log("newJob", newJob)
+        const collectionRef = firestore.collection('users');
+        const userDoc = collectionRef.doc(userID);
+        const userJobs = userDoc.collection('jobs');
+        userJobs.add(newJob);
+        document.getElementById("company-name-field").value = ""
+        document.getElementById("job-title-field").value = ""
+        document.getElementById("job-status-field").value = null
   }
   
   window.onload = function() {
