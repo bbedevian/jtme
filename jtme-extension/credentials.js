@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyDMaarRN0olc8PyrRur92EaZ5P7hmgzFS8",
@@ -97,25 +98,26 @@ var config = {
   }
 
   function addJob(uid){
-        console.log("in add job")
-        const firestore = firebase.firestore();
-        const company = document.getElementById("company-name-field")
-        const jobTitle = document.getElementById("job-title-field")
-        const status = document.getElementById("job-status-field")
-        let date = new Date()
-        const lastContacted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-        let appliedOn = window.location.href
-        const newJob = {company: company.value, jobTitle: jobTitle.value, status: status.value, lastContacted, appliedOn }
-        console.log("newJob", newJob)
-        const collectionRef = firestore.collection('users');
-        const userDoc = collectionRef.doc(uid);
-        const userJobs = userDoc.collection('jobs');
-        userJobs.add(newJob)
-        .then(() => {
-          document.getElementById("company-name-field").value = ""
-          document.getElementById("job-title-field").value = ""
-          document.getElementById("job-status-field").value = null
-        })
+        let field = document.querySelector("#company-name-field")
+        console.log(field.value)
+        // const firestore = firebase.firestore();
+        // const company = document.getElementById("company-name-field")
+        // const jobTitle = document.getElementById("job-title-field")
+        // const status = document.getElementById("job-status-field")
+        // let date = new Date()
+        // const lastContacted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
+        // let appliedOn = window.location.href
+        // const newJob = {company: company.value, jobTitle: jobTitle.value, status: status.value, lastContacted, appliedOn }
+        // console.log("newJob", newJob)
+        // const collectionRef = firestore.collection('users');
+        // const userDoc = collectionRef.doc(uid);
+        // const userJobs = userDoc.collection('jobs');
+        // userJobs.add(newJob)
+        // .then(() => {
+        //   document.getElementById("company-name-field").value = ""
+        //   document.getElementById("job-title-field").value = ""
+        //   document.getElementById("job-status-field").value = null
+        // })
   }
   
   window.onload = function() {
