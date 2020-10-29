@@ -27,7 +27,11 @@ function JobRow(props) {
 	};
 
 	const clickEditButton = () => {
-		props.selectJob(props.job);
+		if(props.selectedJob){
+			return
+		} else {
+			props.selectJob(props.job);
+		}
 	}
 
 	let tableRow;
@@ -41,21 +45,19 @@ function JobRow(props) {
 		<>
 			<tr
 				className="jobRow"
-				onMouseEnter={() => setShowEditBtn(true)}
+				onMouseEnter={() => setShowEditBtn(!props.selectedJob)}
 				onMouseLeave={() => setShowEditBtn(false)}
-				// onClick={() => showModalWithSelectedJob(props)}
 			>	
 				<td onClick={() => showModalWithSelectedJob(props)}>{company}</td>
 				<td onClick={() => showModalWithSelectedJob(props)}>{jobTitle}</td>
 				<td onClick={() => showModalWithSelectedJob(props)}>{month + "/" + day + "/" + year}</td>
 				<td onClick={() => showModalWithSelectedJob(props)}>{status}</td>
-				<td className="table-testing" onClick={() => clickEditButton()}>
+				<td className="table-testing" onClick={clickEditButton}>
 					<EditButton show={showEditBtn} />
 				</td>
 			</tr>
 		</>
 	}
-
 	return (
 		<>
 		{tableRow}
