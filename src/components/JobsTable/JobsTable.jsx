@@ -1,28 +1,60 @@
-import React, {useState} from 'react'
-import {connect} from 'react-redux'
+import React, {useState, useEffect} from 'react'
 import './JobsTable.scss'
-// redux imports
-import { removeSelectedJob } from '../../redux/jobs/jobs.actions'
-import { removeSelectedInteraction } from '../../redux/interactions/interactions.actions'
-// Bootstrap Imports
-import Table from 'react-bootstrap/Table'
-import Container from "react-bootstrap/Container"
+
+//component imports
 import JobRow from '../JobRow/JobRow'
 import JobDetailModal from '../JobDetailModal/JobDetailModal'
 
+// redux imports
+import {connect} from 'react-redux'
+import { removeSelectedJob } from '../../redux/jobs/jobs.actions'
+import { removeSelectedInteraction } from '../../redux/interactions/interactions.actions'
+
+// Bootstrap Imports
+import Table from 'react-bootstrap/Table'
+import Container from "react-bootstrap/Container"
+import Row from 'react-bootstrap/Row'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+
 
 function JobsTable(props){
+   const [jobs, setjobs] = useState(null)
+   const [filteredJobs, setFilteredJobs] = useState(null)
+   const [filter, setFilter] = useState("")
    const [modalShow, setModalShow] = useState(false)
    const handleClose = () => {
       props.removeSelectedJob()
       props.removeSelectedInteraction()
       setModalShow(false)
    }
+
    const handleOpen = () => setModalShow(true)
+
+   useEffect(() => {
+      setjobs(props.jobs)
+   }, [props.jobs])
+
+   useEffect(() => {
+      setFilteredJobs(jobs)
+   }, [jobs])
+
+   const filterJobs = (e) => {
+      let filteredJobs = jobs.filter(job => job.company.toLowerCase().includes(e.target.value))
+      setFilter(e.target.value)
+      setFilteredJobs(filteredJobs)
+   }
 
    return(
       <>
          <Container>
+            <Row className='justify-content-center'>
+               <Form>
+                  <Form.Label>Search Jobs:</Form.Label>
+                  <Form.Control type='text' onChange={filterJobs}></Form.Control>
+                  {/* <Button onClick={filterJobs}>Search</Button> */}
+               </Form>
+            </Row>
                   <Table id="jobs-table" striped bordered hover>
                      <thead id="job-table-header">
                         <tr>
@@ -33,7 +65,7 @@ function JobsTable(props){
                         </tr>
                      </thead>
                         <tbody id="job-table-body">
-                           {props.jobs ? props.jobs.map((job) => {
+                           {filteredJobs ? filteredJobs.map((job) => {
                                  return (
                                     <>
                                        <JobRow 
