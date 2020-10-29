@@ -35,7 +35,7 @@ var config = {
         document.getElementById('quickstart-account-Name').textContent = JSON.stringify(displayName, null, '  ');
         document.getElementById('quickstart-account-ID').textContent = JSON.stringify(uid, null, '  ');
         document.getElementById("new-job-form").hidden = false
-        document.getElementById('submit-job-button').addEventListener('click', addJob)
+        document.getElementById('submit-job-button').addEventListener('click', addJob(uid))
         // [END_EXCLUDE]
       } else {
         // Let's try to get a Google auth token programmatically.
@@ -98,7 +98,6 @@ var config = {
   function addJob(){
         console.log("in add job")
         const firestore = firebase.firestore();
-        const userID = document.getElementById('quickstart-account-ID').textContent
         const company = document.getElementById("company-name-field").value
         const jobTitle = document.getElementById("job-title-field").value
         const status = document.getElementById("job-status-field").value
@@ -107,7 +106,7 @@ var config = {
         const newJob = {company, jobTitle, status, lastContacted }
         console.log("newJob", newJob)
         const collectionRef = firestore.collection('users');
-        const userDoc = collectionRef.doc(userID);
+        const userDoc = collectionRef.doc(uid);
         const userJobs = userDoc.collection('jobs');
         userJobs.add(newJob);
         document.getElementById("company-name-field").value = ""
