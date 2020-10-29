@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import addJob from './addJob.js'
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyDMaarRN0olc8PyrRur92EaZ5P7hmgzFS8",
@@ -8,6 +9,9 @@ var config = {
   };
   firebase.initializeApp(config);
   let uid = null
+  let company = ""
+  let jobTitle = ""
+  let status = ""
   
   /**
    * initApp handles setting up the Firebase context and registering
@@ -37,7 +41,8 @@ var config = {
         document.getElementById('quickstart-account-Name').textContent = JSON.stringify(displayName, null, '  ');
         document.getElementById('quickstart-account-ID').textContent = JSON.stringify(uid, null, '  ');
         document.getElementById("new-job-form").hidden = false
-        document.getElementById('submit-job-button').addEventListener('click', () =>  chrome.runtime.sendMessage({command: 'post'}))
+        document.getElementById('submit-job-button').addEventListener('click', () =>  chrome.runtime.sendMessage({command: 'post'}), false)
+        document.getElementById("job-title-field").addEventListener('change', (event) => chrome.runtime.sendMessage({command: 'changeText', target:event.target, text: event.target.value}))
         // [END_EXCLUDE]
       } else {
         // Let's try to get a Google auth token programmatically.
@@ -97,34 +102,14 @@ var config = {
     }
   }
 
-  function addJob(uid){
-        let field = document.querySelector("#company-name-field")
-        console.log(field.value)
-        // const firestore = firebase.firestore();
-        // const company = document.getElementById("company-name-field")
-        // const jobTitle = document.getElementById("job-title-field")
-        // const status = document.getElementById("job-status-field")
-        // let date = new Date()
-        // const lastContacted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-        // let appliedOn = window.location.href
-        // const newJob = {company: company.value, jobTitle: jobTitle.value, status: status.value, lastContacted, appliedOn }
-        // console.log("newJob", newJob)
-        // const collectionRef = firestore.collection('users');
-        // const userDoc = collectionRef.doc(uid);
-        // const userJobs = userDoc.collection('jobs');
-        // userJobs.add(newJob)
-        // .then(() => {
-        //   document.getElementById("company-name-field").value = ""
-        //   document.getElementById("job-title-field").value = ""
-        //   document.getElementById("job-status-field").value = null
-        // })
-  }
-  
   window.onload = function() {
-    initApp();
-    chrome.runtime.onMessage.addListener((msg, sender, resp) => {
+    initApp(); // runs the check user auth process
+    chrome.runtime.onMessage.addListener((msg) => {
       if(msg.command === "post"){
         addJob(uid)
+      } 
+      if(msg.command === "changeText"){
+        console.log(msg.target)
       }
     })
   };

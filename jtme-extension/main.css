@@ -37,6 +37,10 @@ input, select {
     float: left;
     width: calc(100% - 50px);
 }
+
+[placeholder]:empty:before{
+  content: attr(placeholder);
+}
  
 #submit-job-button {
     margin-top: 10px;
