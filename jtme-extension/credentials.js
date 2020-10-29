@@ -6,6 +6,7 @@ var config = {
     projectId: "jtme-8027c",
   };
   firebase.initializeApp(config);
+  let uid = null
   
   /**
    * initApp handles setting up the Firebase context and registering
@@ -28,14 +29,14 @@ var config = {
       if (user) {
         // User is signed in.
         var displayName = user.displayName;
-        var uid = user.uid;
+        uid = user.uid;
         // [START_EXCLUDE]
         document.getElementById('quickstart-button').textContent = 'Sign out';
         document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
         document.getElementById('quickstart-account-Name').textContent = JSON.stringify(displayName, null, '  ');
         document.getElementById('quickstart-account-ID').textContent = JSON.stringify(uid, null, '  ');
         document.getElementById("new-job-form").hidden = false
-        document.getElementById('submit-job-button').addEventListener('click', addJob(uid))
+        document.getElementById('submit-job-button').addEventListener('click', () =>  chrome.runtime.sendMessage({command: 'post'}))
         // [END_EXCLUDE]
       } else {
         // Let's try to get a Google auth token programmatically.
@@ -95,25 +96,33 @@ var config = {
     }
   }
 
-  function addJob(){
+  function addJob(uid){
         console.log("in add job")
         const firestore = firebase.firestore();
-        const company = document.getElementById("company-name-field").value
-        const jobTitle = document.getElementById("job-title-field").value
-        const status = document.getElementById("job-status-field").value
+        const company = document.getElementById("company-name-field")
+        const jobTitle = document.getElementById("job-title-field")
+        const status = document.getElementById("job-status-field")
         let date = new Date()
         const lastContacted = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
-        const newJob = {company, jobTitle, status, lastContacted }
+        let appliedOn = window.location.href
+        const newJob = {company: company.value, jobTitle: jobTitle.value, status: status.value, lastContacted, appliedOn }
         console.log("newJob", newJob)
         const collectionRef = firestore.collection('users');
         const userDoc = collectionRef.doc(uid);
         const userJobs = userDoc.collection('jobs');
-        userJobs.add(newJob);
-        document.getElementById("company-name-field").value = ""
-        document.getElementById("job-title-field").value = ""
-        document.getElementById("job-status-field").value = null
+        userJobs.add(newJob)
+        .then(() => {
+          document.getElementById("company-name-field").value = ""
+          document.getElementById("job-title-field").value = ""
+          document.getElementById("job-status-field").value = null
+        })
   }
   
   window.onload = function() {
     initApp();
+    chrome.runtime.onMessage.addListener((msg, sender, resp) => {
+      if(msg.command === "post"){
+        addJob(uid)
+      }
+    })
   };
