@@ -18,18 +18,31 @@
     font-family: 'Roboto', 'Helvetica', sans-serif;
   }
   body {
-    width: 400px;
+    width: 250px;
     min-height: 400px;
     margin: 0;
     padding: 5px;
   }
-  a {
-    text-decoration: none;
-  }
-  li a {
-    text-decoration: underline;
-    color: #0288d1;
-  }
+  form {
+    overflow: hidden;
+}
+ 
+label {
+    float: left;
+    width: 50px;
+    padding-right: 24px;
+}
+ 
+input, select {
+    float: left;
+    width: calc(100% - 50px);
+}
+ 
+#submit-job-button {
+    margin-top: 10px;
+    width: 100%;
+}
+ 
   .mdl-grid {
     max-width: 1024px;
     margin: auto;
