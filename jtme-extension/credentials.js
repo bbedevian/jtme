@@ -49,11 +49,15 @@ function initApp() {
           const company = document.getElementById("company-name-field").value;
           const jobTitle = document.getElementById("job-title-field").value;
           const status = document.getElementById("job-status-field").value;
-          const newJob = { company, jobTitle, status };
-          chrome.runtime.sendMessage({ command: "post", newJob });
-          document.getElementById("company-name-field").value = ""
-          document.getElementById("job-title-field").value = ""
-          document.getElementById("job-status-field").value = ""
+          if(company && jobTitle){
+            const newJob = { company, jobTitle, status };
+            chrome.runtime.sendMessage({ command: "post", newJob });
+            document.getElementById("company-name-field").value = ""
+            document.getElementById("job-title-field").value = ""
+            document.getElementById("job-status-field").value = ""
+          } else {
+            alert("please fill out all fields")
+          }
         },
         false
       );
