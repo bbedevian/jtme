@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './header.styles.scss'
 import { ListNested } from 'react-bootstrap-icons'
+import {withRouter} from 'react-router-dom';
 
-
-class Header extends Component {
-    render() {
-        return (
-            <div className='header'>
-                <h1>{<ListNested/>}JTME</h1>
-            </div>
-        );
-    }
+const Header = ({history}) => {
+    return (
+        <div className='header' onClick={() => history.push('/')}>
+            <h1>{<ListNested/>}JTME</h1>
+        </div>
+    );
 }
 
-export default Header;
+export default withRouter(Header);

@@ -7,6 +7,7 @@ import HomePage from './pages/home/home.component'
 import Header from './components/Header/header.component'
 
 import {checkUserSession} from './redux/user/user.actions'
+import WelcomePage from './pages/welcome/welcome.component';
 
 class App extends Component {
   unsubscribeFromAuth = null
@@ -23,7 +24,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/signin' render={() => currentUser ? (<Redirect to='/home' />) : (<SignInSignUp/>)}/>
           <Route exact path='/home' render={() => currentUser ? (<HomePage/>): (<Redirect to='/signin' />)}/>
-          <Route path='/' render={() => currentUser ? (<Redirect to='/home' />) : (<Redirect to='/signin' />)}/>
+          <Route path='/' component={WelcomePage}/>
         </Switch>
       </div>
     );
