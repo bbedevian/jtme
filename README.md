@@ -2,21 +2,26 @@
 
 ## Development Tools
 
-- firebase firestore
-- react frontend
-- docker
-- redux / saga
+- Firebase Auth + Firestore
+- React
+- Redux + Saga
+- Bootstrap
 
-## Plan
-Brett - add new job to user, DB organization
-Rob - Header row, row, table component
+## Notes
+In addition to the web app, we have created a chrome extension which can be downloaded 
+here: https://drive.google.com/drive/folders/11usDbxUbPIb5IwX9P_fglX8tPBLFrrVq?usp=sharing
+though it is also included in this repo if you are cloning or downloading (see folder /jtme-extension)
+### Note in order for the chrome extension to work you MUST create your JTME account with google! 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-Technologies list
+To add the chrome extension to your browser once downloaded:
+- unzip the file
+- in chrome.. go to manage extensions
+- click load unpacked
+- select the folder
+- pin to toolbar for convenience
 
-Firebase - DB and auth 
-Docker or Storybook ? 
-Redux  +  Saga 
-Jest / Enzyme ? 
+Once signed in it will work on any page. The idea is to save you time from switching back and forth between your spreadsheet and the job listing. 
 
-Sass
+This project was created for Code With Friends Fall 2020 by
+Robert Keller and Brett Bedevian
+We'd love to hear your feedback!
