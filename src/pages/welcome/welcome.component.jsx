@@ -21,11 +21,14 @@ const WelcomePage = ({currentUser, history}) => {
             }
             <div className="notes">
                 <h3>v.1 Notes:</h3>
-                <p>We have created a chrome extension which can be downloaded here:</p>
+                <p>We have created a chrome extension which can be downloaded 
+                <a href="https://drive.google.com/drive/folders/11usDbxUbPIb5IwX9P_fglX8tPBLFrrVq?usp=sharing"> here </a>
+                </p>
                 <p>Note you MUST create your JTME account with the sign in with google option to use this</p>
-                <p>placeholder for extension download link</p>
-                <p>see projects ReadMe fo details on how to hook up the extension</p>
-                <p>placeholder for ReadMe link</p>
+                <p>See projects ReadMe 
+                <a href="https://github.com/bbedevian/jtme"> here </a>
+                for details on how to hook up the extension</p>
+                
                 <p>This project was created for Code With Friends Fall 2020 by </p>
                 <p>Robert Keller and Brett Bedevian </p>
                 <p>We'd love to hear your feedback! </p>
