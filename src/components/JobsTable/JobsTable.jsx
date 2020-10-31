@@ -15,13 +15,11 @@ import Table from 'react-bootstrap/Table'
 import Container from "react-bootstrap/Container"
 import Row from 'react-bootstrap/Row'
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 
 
 function JobsTable(props){
    const [jobs, setjobs] = useState(null)
    const [filteredJobs, setFilteredJobs] = useState(null)
-   const [filter, setFilter] = useState("")
    const [modalShow, setModalShow] = useState(false)
    const handleClose = () => {
       props.removeSelectedJob()
@@ -41,7 +39,6 @@ function JobsTable(props){
 
    const filterJobs = (e) => {
       let filteredJobs = jobs.filter(job => job.company.toLowerCase().includes(e.target.value))
-      setFilter(e.target.value)
       setFilteredJobs(filteredJobs)
    }
 
@@ -52,9 +49,9 @@ function JobsTable(props){
                <Form>
                   <Form.Label>Search Jobs:</Form.Label>
                   <Form.Control type='text' onChange={filterJobs}></Form.Control>
-                  {/* <Button onClick={filterJobs}>Search</Button> */}
                </Form>
             </Row>
+            <br/>
                   <Table id="jobs-table" striped bordered hover>
                      <thead id="job-table-header">
                         <tr>

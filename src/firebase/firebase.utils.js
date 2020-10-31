@@ -5,7 +5,7 @@ import {store} from '../redux/store'
 import { addJobToState, updateJobInState } from '../redux/jobs/jobs.actions';
 import {addInteractionToState, updateInteractionInState} from '../redux/interactions/interactions.actions'
 
-
+// add your own firebase application information below to connect to a new firebase firestore project
 var firebaseConfig = {
     apiKey: "AIzaSyDMaarRN0olc8PyrRur92EaZ5P7hmgzFS8",
     authDomain: "jtme-8027c.firebaseapp.com",
