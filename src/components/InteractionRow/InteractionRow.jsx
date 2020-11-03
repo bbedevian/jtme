@@ -10,7 +10,6 @@ import { selectInteraction } from "../../redux/interactions/interactions.actions
 import './InteractionRow.scss'
 
 const InteractionRow = (props) => {
-   console.log("InteractionRow Props", props)
    const { date, type, nextSteps }  = props.interaction
    const [ showEditBtn, setShowEditBtn ] = useState(false)
 

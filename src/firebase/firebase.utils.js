@@ -52,7 +52,6 @@ var firebaseConfig = {
     const userJobs = userDoc.collection('jobs');
     userJobs.add(job)
     .then(function(docRef) {
-      console.log("Job written with ID: ", docRef.id);
       store.dispatch(addJobToState({...job, id: docRef.id}))
     })
     .catch(function(error) {
@@ -61,7 +60,6 @@ var firebaseConfig = {
   }
 
   export const addInteractionToJob = (interaction) => {
-    console.log("interaction", interaction)
     const state = store.getState();
     const currentUserID = state.user.currentUser.id;
     const currState = store.getState();
@@ -73,7 +71,6 @@ var firebaseConfig = {
     // const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
     interactions.add({...interaction})
     .then(function(docRef) {
-      console.log("Interaction written with ID: ", docRef.id);
       const currLastContacted = new Date(selectedJob.lastContacted)
       const interactionDate = new Date(interaction.date)
       const finalDate = currLastContacted > interactionDate? selectedJob.lastContacted : interaction.date

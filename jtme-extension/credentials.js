@@ -133,15 +133,10 @@ function startSignIn() {
 }
 
 window.onload = function () {
-  console.log("on load");
   initApp(); 
   chrome.runtime.onMessage.addListener((msg) => {
     if (msg.command === "post") {
       addJob(uid, msg.newJob);
     }
   });
-};
-
-window.onunload = function () {
-  console.log("getting torn down");
 };

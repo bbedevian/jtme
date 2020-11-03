@@ -10,11 +10,13 @@ const sagaMiddleware = createSagaMiddleware()
 
 const middlewares = [sagaMiddleware];
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+// ??? Comment these in when you need to work with redux dev tools or redux logger
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)))
 // if(process.env.NODE_ENV === 'development') middlewares.push(logger)
+// ???
 
-export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)))
+export const store = createStore(rootReducer, ...middlewares)
 
 sagaMiddleware.run(rootSaga)
 
