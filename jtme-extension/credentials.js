@@ -39,9 +39,6 @@ function initApp() {
       document.getElementById(
         "quickstart-account-Name"
       ).textContent = JSON.stringify(displayName, null, "  ");
-      document.getElementById(
-        "quickstart-account-ID"
-      ).textContent = JSON.stringify(uid, null, "  ");
       document.getElementById("new-job-form").hidden = false;
       document.getElementById("submit-job-button").addEventListener(
         "click",
