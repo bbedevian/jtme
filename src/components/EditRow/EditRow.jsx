@@ -9,6 +9,7 @@ import { removeSelectedJob } from '../../redux/jobs/jobs.actions'
 //component imports
 import SaveButton from '../SaveButton/SaveButton'
 import DiscardChangesButton from '../DiscardChangesButton/DiscardChangesButton'
+import DeleteButton from '../DeleteButton/DeleteButton'
 
 //firebase imports
 import {updateJob} from '../../firebase/firebase.utils'
@@ -60,6 +61,7 @@ class EditRow extends React.Component{
 				<td className="table-testing">
                <SaveButton onClick={this.handleEditSubmit}/>
                <DiscardChangesButton onClick={this.props.removeSelectedJob} />
+               <DeleteButton/>
 				</td>
 			</tr>
       )
