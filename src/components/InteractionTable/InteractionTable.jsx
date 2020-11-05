@@ -1,5 +1,5 @@
 //react imports
-import React, {useEffect} from 'react'
+import React from 'react'
 
 //component imports
 import InteractionRow from '../InteractionRow/InteractionRow'
@@ -43,9 +43,5 @@ function mapStateToProps(state) {
       interactions: state.interactions.interactions
    }
 }
-function mapDispatchToProps(dispatch) {
-   return {
-   }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(InteractionTable);
+export default connect(mapStateToProps)(InteractionTable);

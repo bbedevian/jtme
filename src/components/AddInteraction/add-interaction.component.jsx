@@ -33,13 +33,14 @@ class AddInteraction extends Component {
 
     render() {
         const {type, nextSteps } = this.state
+        const {handleChange, handleSubmit} = this
         return (
             <Container className='add-interaction'>
             <h3>Add an interaction to {this.props.selectedJob.company}</h3>
-                <Form id='add-interaction-form' onSubmit={this.handleSubmit}>
+                <Form id='add-interaction-form' onSubmit={handleSubmit}>
                     <Form.Group controlId="interactionForm">
                         <Form.Label>Type:</Form.Label>
-                        <Form.Control name="type" as="select" value={type} onChange={this.handleChange} >
+                        <Form.Control name="type" as="select" value={type} onChange={handleChange} >
                             <option disabled defaultValue></option>
                             <option value="emailed">Emailed</option>
                             <option value="call">Call</option>
@@ -50,7 +51,7 @@ class AddInteraction extends Component {
 
                     <Form.Group controlId="interactionForm">
                         <Form.Label>Next Steps</Form.Label>
-                        <Form.Control name='nextSteps' value={nextSteps} onChange={this.handleChange}/>
+                        <Form.Control name='nextSteps' value={nextSteps} onChange={handleChange}/>
                     </Form.Group>
                     <Button variant='success' type='submit'>Add</Button>
                 </Form>

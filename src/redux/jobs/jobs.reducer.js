@@ -43,6 +43,13 @@ const jobsReducer = (state = INITIAL_STATE,  action) => {
                 ...state,
                 selectedJob: null
             }
+        case JobActionTypes.DELETE_JOB:
+            let selectedJobID = action.payload
+            return {
+                ...state,
+                jobs: state.jobs.filter(job => job.id !== selectedJobID),
+                selectedJob: null
+            }
         case JobActionTypes.UPDATE_JOB:
             let selectedJob = action.modal? {...action.payload, id: action.jobID, lastContacted: action.timeStamp}: null
             return {

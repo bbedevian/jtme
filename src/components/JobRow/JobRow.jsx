@@ -8,9 +8,6 @@ import EditButton from "../EditButton/EditButton";
 import { connect } from "react-redux";
 import { selectJob } from "../../redux/jobs/jobs.actions";
 
-//bootstrap imports
-import Form from 'react-bootstrap/Form'
-
 function JobRow(props) {
 	const [showEditBtn, setShowEditBtn] = useState(false);
 

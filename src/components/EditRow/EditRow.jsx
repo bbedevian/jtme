@@ -45,21 +45,22 @@ class EditRow extends React.Component{
 
    render(){
       const { company, jobTitle, lastContacted, status} = this.state
+      const {handleEditSubmit, handleChange} = this
       return(
          <tr
 				className="jobRow"
 			>	
-				<td><Form.Control onChange={this.handleChange} name='company' type="text" value={company}></Form.Control></td>
-				<td><Form.Control onChange={this.handleChange} name='jobTitle' type="text" value={jobTitle}></Form.Control></td>
-				<td><Form.Control onChange={this.handleChange} name='lastContacted' type='date' value={lastContacted}></Form.Control></td>
-				<td><Form.Control onChange={this.handleChange} name="status" as='select' value={status}>
+				<td><Form.Control onChange={handleChange} name='company' type="text" value={company}></Form.Control></td>
+				<td><Form.Control onChange={handleChange} name='jobTitle' type="text" value={jobTitle}></Form.Control></td>
+				<td><Form.Control onChange={handleChange} name='lastContacted' type='date' value={lastContacted}></Form.Control></td>
+				<td><Form.Control onChange={handleChange} name="status" as='select' value={status}>
                <option value="saved">Saved</option>
                <option value="applied">Applied</option>
                <option value="interviewing">Interviewing</option>
                <option value="closed">Closed</option>
                </Form.Control></td>
 				<td className="table-testing">
-               <SaveButton onClick={this.handleEditSubmit}/>
+               <SaveButton onClick={handleEditSubmit}/>
                <DiscardChangesButton onClick={this.props.removeSelectedJob} />
                <DeleteButton/>
 				</td>
@@ -69,14 +70,9 @@ class EditRow extends React.Component{
 }
 function mapDispatchToProps(dispatch) {
    return {
-      removeSelectedJob: () => dispatch(removeSelectedJob()),
-
-   }
-}
-function mapStateToProps(state) {
-   return {
-
+      removeSelectedJob: () => dispatch(removeSelectedJob())
    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditRow);
+
+export default connect(null, mapDispatchToProps)(EditRow);

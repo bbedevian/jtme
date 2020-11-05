@@ -51,29 +51,29 @@ class AddJob extends Component {
 
     render() {
         const {company, status, jobTitle, lastContacted, isOpen } = this.state
-        const {handleDropDown} = this
+        const {handleDropDown, handleSubmit, handleChange} = this
         return (
             <Container className='add-job'>
                 <div className='add-job-header' onClick={() =>  handleDropDown()}>
                     Add a new Job {isOpen ? <ArrowUpCircle/> : <ArrowDownCircle/>}
                 </div>
                { isOpen ? 
-                <Form id='add-job-form' onSubmit={this.handleSubmit}>
+                <Form id='add-job-form' onSubmit={handleSubmit}>
                     <Form.Group controlId="companyForm">
                         <Form.Label>Company:</Form.Label>
-                        <Form.Control required name='company' value={company} onChange={this.handleChange}/>
+                        <Form.Control required name='company' value={company} onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="jobTitleForm">
                         <Form.Label>Job Title:</Form.Label>
-                        <Form.Control required name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
+                        <Form.Control required name='jobTitle' value={jobTitle} onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="lastContactForm">
                         <Form.Label>Last Contacted:</Form.Label>
-                        <Form.Control required type="date" name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
+                        <Form.Control required type="date" name='lastContacted' value={lastContacted} onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group controlId="statusForm">
                         <Form.Label>Status:</Form.Label>
-                        <Form.Control required name="status" as="select" value={status} onChange={this.handleChange} >
+                        <Form.Control required name="status" as="select" value={status} onChange={handleChange} >
                             <option disabled defaultValue></option>
                             <option value="saved">Saved</option>
                             <option value="applied">Applied</option>
