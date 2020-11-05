@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 // import logger from 'redux-logger'
 import rootReducer from './root-reducer';
@@ -10,7 +10,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 const middlewares = [sagaMiddleware];
 
-// ??? Comment these in when you need to work with redux dev tools or redux logger
+// ??? Comment these in when you need to work with redux dev tools or redux logger and add 'compose' to redux imports
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)))
 // if(process.env.NODE_ENV === 'development') middlewares.push(logger)
