@@ -30,6 +30,11 @@ export const removeSelectedJob = () => ({
   type: JobActionTypes.REMOVE_SELECTED_JOB
 });
 
+export const deleteJob = (jobID) => ({
+  type: JobActionTypes.DELETE_JOB,
+  payload: jobID
+});
+
 export const showModal = job => ({
   type: JobActionTypes.SHOW_MODAL,
   payload: job

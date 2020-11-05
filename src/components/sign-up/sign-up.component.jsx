@@ -34,13 +34,13 @@ class SignUp extends Component {
 
     render() {
         const {displayName, email, password, confirmPassword} = this.state
-        const {handleChange} = this
+        const {handleChange, handleSubmit} = this
         return (
             <div className='sign-up'>
             <h2 className='title'>I do not have an account</h2>
             <span>Sign up below</span>
 
-            <Form className='sign-up-form' onSubmit={this.handleSubmit}>
+            <Form className='sign-up-form' onSubmit={handleSubmit}>
                 <Form.Group controlId="formBasicDisplayName">
                         <Form.Label>Display Name</Form.Label>
                         <Form.Control required name='displayName' type="text" value={displayName} onChange={handleChange}/>

@@ -3,19 +3,17 @@ import React from "react";
 // Redux  imports
 import { connect } from "react-redux";
 import { fetchInteractionsStart, resetInteractions } from "../../redux/interactions/interactions.actions";
-import {updateJob} from '../../firebase/firebase.utils'
+import {updateJob, removeJobfromUser} from '../../firebase/firebase.utils'
 import {selectJob} from '../../redux/jobs/jobs.actions'
 //component imports
 import InteractionTable from "../InteractionTable/InteractionTable";
 import EditButton from "../EditButton/EditButton";
-import AddInteraction from '../../components/AddInteraction/add-interaction.component'
 //bootstrap imports
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 //styling imports
 import "./JobDetailModal.scss";
-import { render } from "@testing-library/react";
 
 class JobDetailModal extends React.Component {
 	state = {
@@ -36,15 +34,6 @@ class JobDetailModal extends React.Component {
 		this.props.resetInteractions()
 	}
 
-	// componentDidUpdate(prevProps){
-	// 	const {selectedJob} = this.props
-	// 	const {company, jobTitle, lastContacted, status, id} = selectedJob
-	// 	if(id !== prevProps.selectedJob.id){
-	// 		this.setState({ company, jobTitle, lastContacted, status})
-	// 		this.props.fetchInteractionsStart()
-	// 	}
-	// }
-
 	handleChange = e => {
         const {name, value} = e.target
         this.setState({[name]: value})
@@ -59,30 +48,37 @@ class JobDetailModal extends React.Component {
 		this.setState({editing:false})
 	}
 
+	handleDelete = () => {
+		if(window.confirm("Do you want to delete this job?")){
+			removeJobfromUser()
+		}
+	}
+
 	changeShowAddInteraction = () => {
 		this.setState({AddInteraction: !this.state.AddInteraction})
 	}
 
 	render(){
-		// const [editing, setEditing] = useState(false);
-		const {company, jobTitle, lastContacted, status} = this.state
+		const {company, jobTitle, lastContacted, status, AddInteraction, editing} = this.state
+		const {handleChange, handleDelete, handleEditSubmit, changeShowAddInteraction} = this
+		const {selectedJob} = this.props
 		let title;
-		if (this.state.editing) {
+		if (editing) {
 			title = (
 				<>
 					<Modal.Header>
 						<Modal.Title>Edit this Job</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<p>Job Id #: {this.props.selectedJob.id}</p>
+						<p>Job Id #: {selectedJob.id}</p>
 						<Form.Label>Company Name:</Form.Label>
-						<Form.Control  name='company' value={company} onChange={this.handleChange}/>
+						<Form.Control  name='company' value={company} onChange={handleChange}/>
 						<Form.Label>Job Title:</Form.Label>
-						<Form.Control name='jobTitle' value={jobTitle} onChange={this.handleChange}/>
+						<Form.Control name='jobTitle' value={jobTitle} onChange={handleChange}/>
 						<Form.Label>Last Updated:</Form.Label>
-						<Form.Control type='date' name='lastContacted' value={lastContacted} onChange={this.handleChange}/>
+						<Form.Control type='date' name='lastContacted' value={lastContacted} onChange={handleChange}/>
 						<Form.Label>Status:</Form.Label> 
-						<Form.Control name="status" as="select" value={status} onChange={this.handleChange} >
+						<Form.Control name="status" as="select" value={status} onChange={handleChange} >
 							{/* need a way to get the already selected choice and input it */}
 							<option value="saved">Saved</option>
 							<option value="applied">Applied</option>
@@ -92,7 +88,7 @@ class JobDetailModal extends React.Component {
 					</Modal.Body>
 					<Modal.Footer>
 						<Button onClick={() => this.setState({editing:false})}>Stop Editing</Button>
-						<Button onClick={(e) => this.handleEditSubmit(e)}>Save Changes</Button>
+						<Button onClick={(e) => handleEditSubmit(e)}>Save Changes</Button>
 					</Modal.Footer>
 				</>
 			);
@@ -101,15 +97,16 @@ class JobDetailModal extends React.Component {
 				<>
 					<Modal.Header closeButton >
 						<Modal.Title>
-							{this.props.selectedJob.jobTitle} @ {this.props.selectedJob.company}
+							{selectedJob.jobTitle} @ {selectedJob.company}
 							<EditButton clicked={() => this.setState({editing: true})} show={true} />
 						</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						<InteractionTable changeShowAddInteraction={this.changeShowAddInteraction} show={this.state.AddInteraction} />
+						<InteractionTable changeShowAddInteraction={changeShowAddInteraction} show={AddInteraction} />
 					</Modal.Body>
 					<Modal.Footer>
-					{this.state.AddInteraction ? null : <Button onClick={this.changeShowAddInteraction}>Add Interaction</Button>}
+					{AddInteraction ? null : <Button onClick={changeShowAddInteraction}>Add Interaction</Button>}
+					{AddInteraction ? null : <Button onClick={() => handleDelete()}>Delete this job</Button>}
 					</Modal.Footer>
 				</>
 			);
@@ -128,9 +125,9 @@ class JobDetailModal extends React.Component {
 	}
 }
 
-const msp = state => ({
-	user: state.user.currentUser,
-	selectedJob: state.jobs.selectedJob
+const msp = ({user, jobs}) => ({
+	user: user.currentUser,
+	selectedJob: jobs.selectedJob
 });
 
 const mdp = (dispatch) => {

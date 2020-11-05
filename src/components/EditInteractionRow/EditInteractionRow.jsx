@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 //redux imports
 import { connect } from "react-redux";
@@ -42,6 +42,7 @@ class EditInteractionRow extends React.Component {
 
 	render() {
 		const { date, type, nextSteps } = this.state;
+		const {handleChange, handleEditSubmit} = this
 		return (
 			<tr>
 				<td>
@@ -49,7 +50,7 @@ class EditInteractionRow extends React.Component {
 						type="date"
 						value={date}
 						name="date"
-						onChange={this.handleChange}
+						onChange={handleChange}
 					></Form.Control>
 				</td>
 				<td>
@@ -57,7 +58,7 @@ class EditInteractionRow extends React.Component {
 						as="select"
 						value={type}
 						name="type"
-						onChange={this.handleChange}
+						onChange={handleChange}
 					>
 						<option disabled defaultValue></option>
 						<option value="emailed">Emailed</option>
@@ -70,11 +71,11 @@ class EditInteractionRow extends React.Component {
 					<Form.Control
 						value={nextSteps}
 						name="nextSteps"
-						onChange={this.handleChange}
+						onChange={handleChange}
 					></Form.Control>
 				</td>
 				<td>
-					<SaveButton onClick={this.handleEditSubmit} />
+					<SaveButton onClick={handleEditSubmit} />
 					<DiscardChangesButton onClick={this.props.discardChanges} />
 				</td>
 			</tr>

@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import {store} from '../redux/store'
-import { addJobToState, updateJobInState } from '../redux/jobs/jobs.actions';
+import { addJobToState, deleteJob, updateJobInState } from '../redux/jobs/jobs.actions';
 import {addInteractionToState, updateInteractionInState} from '../redux/interactions/interactions.actions'
 
 // add your own firebase application information below to connect to a new firebase firestore project
@@ -59,6 +59,21 @@ var firebaseConfig = {
     });
   }
 
+  export const removeJobfromUser = () => {
+    const state = store.getState();
+    const currentUserID = state.user.currentUser.id;
+    const selectedJobID = state.jobs.selectedJob.id;
+    const collectionRef = firestore.collection('users');
+    const userDoc = collectionRef.doc(currentUserID);
+    userDoc.collection('jobs').doc(selectedJobID).delete()
+    .then(() => {
+      store.dispatch(deleteJob(selectedJobID))
+    })
+    .catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+  }
+
   export const addInteractionToJob = (interaction) => {
     const state = store.getState();
     const currentUserID = state.user.currentUser.id;
@@ -67,8 +82,6 @@ var firebaseConfig = {
     const collectionRef = firestore.collection('users');
     const userDoc = collectionRef.doc(currentUserID);
     const interactions = userDoc.collection('jobs').doc(selectedJob.id).collection('interactions')
-    // const time = new Date()
-    // const dateStamp = time.getFullYear() + '-' + (time.getMonth()+1) + '-' + time.getDate()
     interactions.add({...interaction})
     .then(function(docRef) {
       const currLastContacted = new Date(selectedJob.lastContacted)
@@ -76,7 +89,6 @@ var firebaseConfig = {
       const finalDate = currLastContacted > interactionDate? selectedJob.lastContacted : interaction.date
       store.dispatch(addInteractionToState({...interaction, id: docRef.id}))
       userDoc.collection('jobs').doc(selectedJob.id).update({lastContacted: finalDate})
-      // last step is to update the jobs last touch on the frontend which can be done with an action from reducer
       .then(() => {
         let modal = true
         store.dispatch(updateJobInState(selectedJob, selectedJob.id, finalDate, modal))
