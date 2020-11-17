@@ -36,7 +36,10 @@
 .sign-out {
   position: absolute;
   bottom: 125px;
-  margin-left: auto;
-  margin-right: auto;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 /*# sourceMappingURL=home.styles.css.map */

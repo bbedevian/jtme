@@ -180,3 +180,20 @@ var firebaseConfig = {
   export const googleProvider = new firebase.auth.GoogleAuthProvider();
   googleProvider.setCustomParameters({prompt: 'select_account'});
   export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+  export const sendFeedback = (content) => {
+    const state = store.getState();
+    const currentUserEmail = state.user.currentUser.email;
+    const collectionRef = firestore.collection('feedback');
+
+
+    const feedback = {
+      email: currentUserEmail,
+      content: content
+    }
+
+    collectionRef.add(feedback)
+    .then(ref => console.log(ref))
+    .catch(err=> console.log(err))
+
+  }
