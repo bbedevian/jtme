@@ -4,6 +4,7 @@ import AddJob from '../../components/AddJob/add-job.component';
 import {connect} from 'react-redux'
 import { signOutStart } from '../../redux/user/user.actions';
 import Button from 'react-bootstrap/Button'
+import FeedbackForm from '../../components/FeedbackForm/FeedbackForm'
 
 import './home.styles.scss'
 
@@ -13,6 +14,7 @@ const HomePage = (props) => {
         <div className='home-page'>
             <div className='side-bar'>
                 <AddJob/>
+                <FeedbackForm/>
                 <Button onClick={() => props.signOutStart()} className='sign-out'>Sign Out</Button>
             </div>
             <div className='job-stuffs'>

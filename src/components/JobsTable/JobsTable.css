@@ -7,8 +7,9 @@
 }
 
 #jobs-table {
+  margin-top: 2rem;
   overflow-y: auto;
-  height: 600px;
+  max-height: 600px;
   border-collapse: collapse;
   width: 100%;
 }

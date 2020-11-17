@@ -1,0 +1,21 @@
+.faux-button {
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.faux-button:hover {
+  color: white;
+  background-color: #007bff;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+.notes {
+  margin-top: 50px;
+}
+
+.headline {
+  margin-bottom: 50px;
+}
+/*# sourceMappingURL=welcome.styles.css.map */
