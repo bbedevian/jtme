@@ -3,9 +3,29 @@
    border-bottom: solid white 1px !important;
    border-right: solid white 1px !important;
    border-top: solid white 1px !important;
-   width: 60px;
-   height: 55px;
+   width: 10%;
+   height: 64px;
    z-index: 100;
    white-space: nowrap;
 }
 
+.companyName{
+width: 30%;
+height: 64px;
+vertical-align: middle !important;
+}
+.jobTitle{
+width: 25%;
+height: 64px;
+vertical-align: middle !important;
+}
+.date{
+width: 20%;
+height: 64px;
+vertical-align: middle !important;
+}
+.status{
+width: 15%;
+height: 64px;
+vertical-align: middle !important;
+}

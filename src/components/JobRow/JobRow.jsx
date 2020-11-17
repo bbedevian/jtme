@@ -45,10 +45,10 @@ function JobRow(props) {
 				onMouseEnter={() => setShowEditBtn(!props.selectedJob)}
 				onMouseLeave={() => setShowEditBtn(false)}
 			>	
-				<td onClick={() => showModalWithSelectedJob(props)}>{company}</td>
-				<td onClick={() => showModalWithSelectedJob(props)}>{jobTitle}</td>
-				<td onClick={() => showModalWithSelectedJob(props)}>{month + "/" + day + "/" + year}</td>
-				<td onClick={() => showModalWithSelectedJob(props)}>{status}</td>
+				<td className="companyName" onClick={() => showModalWithSelectedJob(props)}>{company}</td>
+				<td className="jobTitle" onClick={() => showModalWithSelectedJob(props)}>{jobTitle}</td>
+				<td className="date" onClick={() => showModalWithSelectedJob(props)}>{month + "/" + day + "/" + year}</td>
+				<td className="status" onClick={() => showModalWithSelectedJob(props)}>{status}</td>
 				<td className="table-testing" onClick={clickEditButton}>
 					<EditButton show={showEditBtn} />
 				</td>
