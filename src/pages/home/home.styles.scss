@@ -4,17 +4,16 @@
 }
 
 .job-stuffs {
-    width: 100%;
-    margin-left: 200px;
+    flex-grow: 1;
 }
 
 .side-bar {
-    height: 100%;
     width: 200px; 
-    position: fixed;
+    position: relative;
     z-index: 10; 
-    top: 25; 
+    top: 0; 
     left: 0;
+    padding: 20px 0;
     overflow-x: hidden; 
     display: flex;
     flex-direction: column;
