@@ -26,11 +26,10 @@ function InteractionTable(props){
                
             {props.interactions? props.interactions.map((interaction) => {
                                  return (
-                                    <>
                                        <InteractionRow
+                                       key={interaction.id}
                                        interaction={interaction}
                                        />
-                                    </>
                                  )
                            }) : null}
             </tbody>
