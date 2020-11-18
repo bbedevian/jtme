@@ -56,6 +56,6 @@ We'd love to hear your feedback!
 
 - Scraper to autofill job information for you when you open the chrome extension on a page with a job application
 - Add export functionality to take the information into the spreadsheet of your choice (google sheets, Microsoft Excel)
-- sort your jobs by open or closed opportunites
+- sort your jobs by open or closed opportunities
 - add demo user to check out application without registering your email
 - add tutorial to show how to use the app the first time you log in.
