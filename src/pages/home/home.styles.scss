@@ -12,7 +12,7 @@
     height: 100%;
     width: 200px; 
     position: fixed;
-    z-index: 1; 
+    z-index: 10; 
     top: 25; 
     left: 0;
     overflow-x: hidden; 
@@ -23,7 +23,8 @@
 
 .sign-out {
     position: absolute;
-    bottom: 125px;
+    right: 3%;
+    top: 3.5%;
     justify-self: center;
     align-self: center;
 }

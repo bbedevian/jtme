@@ -15,10 +15,10 @@ const HomePage = (props) => {
             <div className='side-bar'>
                 <AddJob/>
                 <FeedbackForm/>
-                <Button onClick={() => props.signOutStart()} className='sign-out'>Sign Out</Button>
             </div>
             <div className='job-stuffs'>
                 <JobsTable></JobsTable>
+                <Button variant='outline-light' onClick={() => props.signOutStart()} className='sign-out'>Sign Out</Button>
             </div>
         </div>
     );
