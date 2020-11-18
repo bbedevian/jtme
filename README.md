@@ -41,7 +41,9 @@ To add the chrome extension to your browser once downloaded:
 - in chrome.. go to manage extensions
 - click load unpacked
 - select the folder
-- pin to toolbar for convenience
+- pin to toolbar: 
+  - click the puzzle piece "extensions" button on the toolbar between your existing extensions and your google account
+  - find the JTME extension and click the pushpin icon if it is not blue
 
 Once signed in it will work on any page. The idea is to save you time from switching back and forth between your spreadsheet and the job listing. 
 
