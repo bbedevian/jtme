@@ -6,9 +6,8 @@ import { sendFeedback } from "../../firebase/firebase.utils";
 import { Form, Button } from "react-bootstrap";
 import { ArrowUpCircle, ArrowDownCircle } from "react-bootstrap-icons";
 
-const FeedbackForm = () => {
+const FeedbackForm = (props) => {
 	const [feedback, setFeedback] = useState("");
-	const [display, setDisplay] = useState(false);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -19,10 +18,10 @@ const FeedbackForm = () => {
 		<div className="feedback-div">
 			<div 
 			className="feedback-header"
-			onClick={() => setDisplay(!display)}>
-				Give Us Feedback {display ? <ArrowUpCircle /> : <ArrowDownCircle />}
+			onClick={() => props.handleDisplay()}>
+				Give Us Feedback { props.isOpen? <ArrowUpCircle /> : <ArrowDownCircle />}
 			</div>
-			{display && (
+			{props.isOpen && (
 				<Form onSubmit={handleSubmit} className="feedback-content">
 					<Form.Control
 						name="feedback"
