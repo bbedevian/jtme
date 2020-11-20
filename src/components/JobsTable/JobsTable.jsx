@@ -64,15 +64,12 @@ function JobsTable(props){
                         <tbody id="job-table-body">
                            {filteredJobs ? filteredJobs.map((job) => {
                                  return (
-                                    <>
                                        <JobRow 
                                        key={job.id} 
                                        handleOpen={handleOpen}
                                        handleClose={handleClose} 
                                        job={job}
                                        />
-                                       
-                                    </>
                                  )
                            }) : null}
                         </tbody>
